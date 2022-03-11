@@ -5,9 +5,12 @@
         .title.red TSY ZONE
       .body
         .photos
-          img.phone(v-for='photo of photos' :src='`./assets/${photo}`')
+          sy-preview(ref='previewRef' :images='photos')
+          .phone(v-for='(photo, idx) of photos' :key='idx' @click='$refs.previewRef.show(idx)' :style='photoStyle')
+            img(:src='`${photo}`' draggable='false')
+            
         .site-map
-          a.item(href='/tsyvue/') tsyvue
+          a.item(href='/tsyvue/') tsyvue 教程
           a.item(href='/beautyshop/')
 
     
@@ -23,14 +26,22 @@ export default {
   },
   data() {
     return {
-      phones: [
-        '20220311102357.jpg',
-        '20220311102855.jpg',
-        '20220311102907.jpg',
-        '20220311102918.jpg',
-        '20220311102928.jpg',
-        '20220311102938.jpg'
+      photos: [
+        './assets/20220311102357.jpg',
+        './assets/20220311102918.jpg',
+        './assets/20220311102855.jpg',
+        './assets/20220311102938.jpg',
+        './assets/20220311102907.jpg',
+        './assets/20220311102928.jpg',
+        
       ]
+    }
+  },
+  methods: {
+    photoStyle() {
+      return {
+        transform:`rotate(${5 - Math.floor(Math.random() * 10)}deg)`
+      }
     }
   }
 }
@@ -61,6 +72,14 @@ export default {
     .body
       width: 100%
       margin-top: 6px
+      .photos
+        .phone
+          display: inline-block
+          margin: 10px
+          box-shadow: 5px 5px 5px gray 
+          padding: 6px
+          img
+            width: 200px
       .site-map
         padding: 10px
         margin: 10px
