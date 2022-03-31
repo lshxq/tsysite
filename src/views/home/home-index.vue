@@ -12,11 +12,13 @@
 
         .block
           .panos
-              
+
         .block
           .site-map
             a.item(href='/tsyvue/') tsyvue 教程
+            a.item(href='javascript:false' @click='goto("pano")') 全景图
             a.item(href='/beautyshop/') Beautyshop
+            
 
     
           
@@ -98,4 +100,5 @@ export default {
           cursor: pointer
           display: block
           color: gray
+          padding: 10px
 </style>

@@ -13,6 +13,18 @@ Vue.use(tsy);
 Vue.config.productionTip = false;
 
 Vue.component("pano-viewer", PanoViewer);
+Vue.mixin({
+  methods: {
+    goto(name, args = {}) {
+      const { params, query } = args;
+      this.$router.push({
+        name,
+        params,
+        query,
+      });
+    },
+  },
+});
 
 new Vue({
   router,
