@@ -5,13 +5,12 @@
         .title.red TSY ZONE
       .body
         .block
-          .photos
-            sy-preview(ref='previewRef' :images='photos')
-            .phone(v-for='(photo, idx) of photos' :key='idx' @click='$refs.previewRef.show(idx)' :style='photoStyle')
-              img(:src='`${photo}`' draggable='false')
+          .h3 快乐时光
+          photo-list
 
         .block
-          .panos
+          .h3 全景图欣赏
+          pano-list
 
         .block
           .site-map
@@ -26,32 +25,26 @@
 </template>
 
 <script>
+import PhotoList from "./components/photo-list.vue";
+import PanoList from "./components/pano-list.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: {
+    PanoList,
+    PhotoList,
+  },
   data() {
-    return {
-      photos: [
-        "./assets/20220311102357.jpg",
-        "./assets/20220311102918.jpg",
-        "./assets/20220311102855.jpg",
-        "./assets/20220311102938.jpg",
-        "./assets/20220311102907.jpg",
-        "./assets/20220311102928.jpg",
-      ],
-    };
+    return {};
   },
-  methods: {
-    photoStyle() {
-      return {
-        transform: `rotate(${5 - Math.floor(Math.random() * 10)}deg)`,
-      };
-    },
-  },
+  methods: {},
 };
 </script>
 
 <style lang="sass" scoped>
+.block
+  border-bottom: 1px solid lightgray
+  padding: 10px 10px 30px 10px
 
 #app-main-panel
   user-select: none
@@ -59,6 +52,8 @@ export default {
   background-image: url('./assets/20220311102907.jpg')
   background-size: 100%
   background-position: 0 0
+  background-repeat: no-repeat
+
 
   .narrow
     margin: 100px auto
@@ -67,7 +62,7 @@ export default {
     border-radius: 20px
     min-height: calc(100% - 100px)
     width: 80%
-    min-width: 1000px
+    min-width: 720px
     transition: all .5s
     .header
       height: 100px
@@ -83,14 +78,7 @@ export default {
     .body
       width: 100%
       margin-top: 6px
-      .photos
-        .phone
-          display: inline-block
-          margin: 10px
-          box-shadow: 5px 5px 5px gray
-          padding: 6px
-          img
-            width: 200px
+
       .site-map
         padding: 10px
         margin: 10px
