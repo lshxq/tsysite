@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "element-ui": "^2.15.6",
+    "mavon-editor": "^2.10.4",
     "photo-sphere-viewer": "^4.6.1",
     "tsyvue": "^0.1.9",
     "vue": "^2.6.11"

@@ -6,8 +6,12 @@ import element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import router from "./router";
 
+import { mavonEditor } from "mavon-editor";
+import "mavon-editor/dist/css/index.css";
+
 import PanoViewer from "./components/pano-viewer/pano-viewer.vue";
 
+Vue.use(mavonEditor);
 Vue.use(element);
 Vue.use(tsy);
 Vue.config.productionTip = false;

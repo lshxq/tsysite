@@ -1,9 +1,8 @@
 <template lang="pug">
   .photo-list-main
     .photos
-        sy-preview(ref='previewRef' :images='photos')
-        .photo(v-for='(photo, idx) of photos' :key='idx' @click='$refs.previewRef.show(idx)' :style='photoStyle')
-          img(:src='`${photo}`' draggable='false')
+        sy-img(:src='photos' width='200px')
+
 </template>
 
 <script>
