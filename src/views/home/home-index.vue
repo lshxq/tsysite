@@ -43,31 +43,24 @@ export default {
 
 <style lang="sass" scoped>
 .block
-  border-bottom: 1px solid lightgray
   padding: 10px 10px 30px 10px
 
 #app-main-panel
   user-select: none
   width: 100%
-  background-image: url('./assets/20220311102907.jpg')
-  background-size: 100%
-  background-position: 0 0
-  background-repeat: no-repeat
+  background-image: linear-gradient(#1e1e1e, #303030, #1e1e1e)
+  color: white
 
 
   .narrow
-    margin: 100px auto
-    padding-bottom: 100px
-    background: white
-    border-radius: 20px
-    min-height: calc(100% - 100px)
+    margin: 0 auto
     width: 80%
     min-width: 720px
     transition: all .5s
+
     .header
       height: 100px
       margin: 10px
-      border-bottom: 1px solid lightgray
       .title
         font-size: 50px
         display: flex
@@ -77,12 +70,10 @@ export default {
 
     .body
       width: 100%
-      margin-top: 6px
 
       .site-map
         padding: 10px
         margin: 10px
-        border: 1px solid lightgray
         width: 200px
         .item
           cursor: pointer
