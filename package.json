@@ -13,7 +13,7 @@
     "js-cookie": "^3.0.1",
     "mavon-editor": "^2.10.4",
     "photo-sphere-viewer": "^4.6.1",
-    "tsyvue": "^0.1.10",
+    "tsyvue": "^0.1.11",
     "vue": "^2.6.11",
     "vue-router": "^3.0.0"
   },

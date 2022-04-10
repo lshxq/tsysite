@@ -19,8 +19,23 @@
             a.item(href='/beautyshop/') Beautyshop
 
         .block
-          .h3 分享
-          artical-list
+          .section
+            sy-left-right
+              b(slot='left') 生活分享
+              template(slot='right')
+                el-button(size='mini'  type='primary' @click='newLifeShare') 新分享
+            sy-pagin-data(url='/public/artical/list')
+              template(slot-scope='scope')
+                .data-row(v-for='(row, idx) of scope.data' :key='idx') {{row.title}}
+          .section
+            sy-left-right
+              b(slot='left')  技术分享
+              template(slot='right')
+                el-button(size='mini' type='primary' @click='newTechShare') 新分享
+
+            sy-pagin-data(url='/public/artical/list')
+              template(slot-scope='scope')
+                .data-row(v-for='(row, idx) of scope.data' :key='idx') {{row.title}}
             
 
     
@@ -31,29 +46,49 @@
 <script>
 import PhotoList from "./components/photo-list.vue";
 import PanoList from "./components/pano-list.vue";
-import ArticalList from './components/artical-list.vue';
 
 export default {
   name: "App",
   components: {
     PanoList,
     PhotoList,
-    ArticalList,
   },
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    newLifeShare() {
+      this.goto("blog-creation", {query: {type: '0'}})
+    },
+    newTechShare() {
+      this.goto("blog-creation", {query: {type: '1'}})
+    }
+  },
 };
 </script>
 
 <style lang="sass" scoped>
 .block
   padding: 10px 10px 30px 10px
+  display: flex
+  flex-flow: row wrap
+  .section
+    box-sizing: border-box
+    padding: 10px 40px 10px 10px
+    width: 50%
+@media screen and (min-width:1000px)
+  .block
+    .section
+      width: 50%
+
+@media screen and (max-width:1000px)
+  .block
+    .section
+      width: 100%
 
 #app-main-panel
   user-select: none
-  width: 100%
+  min-width: 580px
   background-image: linear-gradient(#101010, #303030, #101010)
   color: white
   min-height: 100vh
@@ -62,7 +97,6 @@ export default {
   .narrow
     margin: 0 auto
     width: 80%
-    min-width: 720px
     transition: all .5s
 
     .header
