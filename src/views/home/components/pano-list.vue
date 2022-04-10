@@ -30,10 +30,11 @@ export default {
     return {
       currentPano: null,
       panos: [
-        require("@/assets/images/pano/6c44d55550f7df2a5ddc4f4f863bba84.jpeg"),
-        require("@/assets/images/pano/shenzhen-dameisha.jpeg"),
-        require("@/assets/images/pano/c1.jpeg"),
-        require("@/assets/images/pano/c2.jpeg"),
+        require("@/assets/images/pano/00.jpeg"),
+        require("@/assets/images/pano/01.jpeg"),
+        require("@/assets/images/pano/02.jpeg"),
+        require("@/assets/images/pano/03.jpeg"),
+        require("@/assets/images/pano/04.jpeg"),
       ],
     };
   },

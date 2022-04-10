@@ -10,4 +10,10 @@ export default [
     meta: {},
     component: () => import("../views/home/home-index.vue"),
   },
+  {
+    path: '/login',
+    name: 'login',
+    meta: {},
+    component: () => import("@/views/login/login-index.vue")
+  }
 ];
