@@ -17,6 +17,10 @@
             a.item(href='/tsyvue/') tsyvue 教程
             a.item(href='/pano/') 全景图
             a.item(href='/beautyshop/') Beautyshop
+
+        .block
+          .h3 分享
+          artical-list
             
 
     
@@ -27,12 +31,14 @@
 <script>
 import PhotoList from "./components/photo-list.vue";
 import PanoList from "./components/pano-list.vue";
+import ArticalList from './components/artical-list.vue';
 
 export default {
   name: "App",
   components: {
     PanoList,
     PhotoList,
+    ArticalList,
   },
   data() {
     return {};
@@ -48,8 +54,9 @@ export default {
 #app-main-panel
   user-select: none
   width: 100%
-  background-image: linear-gradient(#1e1e1e, #303030, #1e1e1e)
+  background-image: linear-gradient(#101010, #303030, #101010)
   color: white
+  min-height: 100vh
 
 
   .narrow
@@ -76,8 +83,8 @@ export default {
         margin: 10px
         width: 200px
         .item
+          color: white
           cursor: pointer
           display: block
-          color: gray
           padding: 10px
 </style>

@@ -7,15 +7,18 @@
         .sub-title 田世远的空间
         el-form.login-form(label-wdith='80px' :model='model' ref='loginFormRef' :rules='rules')
           el-form-item(prop='username')
-            el-input(v-model='model.username' placeholder='请输入用户名')
-          el-form-item(prop='password')
-            el-input(v-model='model.password' show-password placeholder='请输入密码')
+            el-input(v-model.trim='model.username' placeholder='请输入用户名')
+          el-form-item(prop='pass')
+            el-input(v-model.trim='model.pass' show-password placeholder='请输入密码')
           el-form-item
             el-button.w0(type='primary' @click='login') 登录
         
 </template>
 
 <script>
+import _ from 'lodash'
+import Cookies from 'js-cookie'
+
 export default {
   created() {
     this.rules = {
@@ -23,7 +26,7 @@ export default {
         { required: true, message: "请输入用户名", trigger: "blur" },
         { min: 3, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur" },
       ],
-      password: [
+      pass: [
         { required: true, message: "请输入登录密码", trigger: "blur" },
       ],
     };
@@ -37,7 +40,7 @@ export default {
     return {
       model: {
         username: "",
-        password: "",
+        pass: "",
       },
       backgrounds: [
         require('@/assets/images/pano/00.jpeg'),
@@ -59,16 +62,33 @@ export default {
   },
    methods: {
     login() {
-      this.$refs.loginFormRef.validate((valid) => {
+      const that = this
+      const {
+        model
+      } = that
+      that.$refs.loginFormRef.validate((valid) => {
         if (valid) {
           this.$axios({
-            url: '/login',
-            params: {
-              ...this.model
+            url: 'user/login',
+            method: 'POST',
+            data: {
+              ...model
             }
           }).then(resp => {
             console.log(resp)
-            this.goto("home")
+            const msg = _.get(resp, 'data.msg')
+            const token = _.get(resp, 'data.token')
+            const user = _.get(resp, 'data.user')
+            if (msg) {
+              that.$message.error(msg)
+            } else if (token){
+              Cookies.set("jwt-token", token, {expires: 1})
+              that.saveUser(user)
+              that.goto("home")
+            } else {
+              that.$message.error('服务器没有返回登陆token')
+            }
+
           })
         }
       });
