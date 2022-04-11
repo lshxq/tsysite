@@ -2,7 +2,7 @@
   .login-index-main
     pano-viewer(:img='backgroundComp' :cfg='panoCfg')
     .mask
-      .login-panel
+      .login-panel(v-loading='loading')
         .title 登录
         .sub-title 田世远的空间
         el-form.login-form(label-wdith='80px' :model='model' ref='loginFormRef' :rules='rules')
@@ -17,7 +17,7 @@
 
 <script>
 import _ from 'lodash'
-import Cookies from 'js-cookie'
+import utils from '@/utils.js'
 
 export default {
   created() {
@@ -38,6 +38,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       model: {
         username: "",
         pass: "",
@@ -68,7 +69,8 @@ export default {
       } = that
       that.$refs.loginFormRef.validate((valid) => {
         if (valid) {
-          this.$axios({
+          that.loading = true
+          that.$axios({
             url: 'user/login',
             method: 'POST',
             data: {
@@ -82,13 +84,14 @@ export default {
             if (msg) {
               that.$message.error(msg)
             } else if (token){
-              Cookies.set("jwt-token", token, {expires: 1})
-              that.saveUser(user)
+              utils.setCurrentUser(user, token)
               that.goto("home")
             } else {
               that.$message.error('服务器没有返回登陆token')
             }
 
+          }).finally(() => {
+            that.loading = false
           })
         }
       });

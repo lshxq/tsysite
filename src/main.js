@@ -1,61 +1,46 @@
 import Vue from "vue";
-import axios from 'axios';
+
 import App from "./App.vue";
 import "./assets/main.sass";
 import tsy from "tsyvue";
 import element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import router from "./router";
+import _ from 'lodash';
 
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
+import utils from '@/utils.js'
 
 import PanoViewer from "./components/pano-viewer/pano-viewer.vue";
 
-Vue.use(mavonEditor);
+Vue.component('mavon-editor', mavonEditor)
 Vue.use(element);
 Vue.use(tsy);
 Vue.config.productionTip = false;
 
 Vue.component("pano-viewer", PanoViewer);
 
-axios.defaults.baseURL='/site-api';
 
-let currentUser = null
+
 Vue.mixin({
   methods: {
-    saveUser(user) {
-      currentUser = user
+    goback() {
+      this.$router.go(-1)
     },
-    getUser() {
-      return currentUser
+    getCurrentUser() {
+      return utils.getCurrentUser()
     },
     $axios(params) {
-      return new Promise((res, rej) => {
-        axios(params).then(res).catch(ex => {
-          const {
-            mock
-          } = params
-          if (mock) {
-            const buildResponse = data => {
-              return { // 模拟axios返回的数据结构
-                data
-              }
-            }
-            
-            let mockData = null
-            if( typeof mock === 'function') {
-              mockData=buildResponse(mock(params))
-            } else {
-              mockData = buildResponse(mock)
-            }
-            console.log('调用接口失败，采用mock数据', mockData)
-            res(mockData)
-          } else {
-            rej(ex)
-          }
-        })
+      const that = this
+      const prom = utils.axios(params)
+      prom.catch(ex => {
+        const status = _.get(ex, 'response.status')
+        if ('401' === `${status}`) {
+          that.goto("login", {})
+        }
       })
+      return prom
     },
     goto(name, args = {}) {
       const { params, query } = args;

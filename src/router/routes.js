@@ -19,7 +19,9 @@ export default [
   {
     path: '/blog/creation',
     name: 'blog-creation',
-    meta: {},
+    meta: {
+      loginNeeded: true
+    },
     component: () => import("@/views/blog/creation-index.vue")
   }
 ];

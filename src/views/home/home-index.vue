@@ -4,15 +4,15 @@
       .header
         .title.red TSY ZONE
       .body
-        .block
-          .h3 快乐时光
+        .block-section
+          .title 快乐时光
           photo-list
 
-        .block
-          .h3 全景图欣赏
+        .block-section
+          .title 全景图欣赏
           pano-list
 
-        .block
+        .block-section
           .site-map
             a.item(href='/tsyvue/') tsyvue 教程
             a.item(href='/pano/') 全景图
@@ -58,16 +58,23 @@ export default {
   },
   methods: {
     newLifeShare() {
-      this.goto("blog-creation", {query: {type: '0'}})
+      this.goto("blog-creation", {query: {type: '1'}})
     },
     newTechShare() {
-      this.goto("blog-creation", {query: {type: '1'}})
+      this.goto("blog-creation", {query: {type: '2'}})
     }
   },
 };
 </script>
 
 <style lang="sass" scoped>
+.block-section
+  margin-bottom: 30px
+  .title
+    font-weight: bolder
+    font-size: 20px
+    margin-bottom: 10px
+  
 .block
   padding: 10px 10px 30px 10px
   display: flex
@@ -101,7 +108,6 @@ export default {
 
     .header
       height: 100px
-      margin: 10px
       .title
         font-size: 50px
         display: flex
