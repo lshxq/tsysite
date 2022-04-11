@@ -24,7 +24,7 @@
               b(slot='left') 生活分享
               template(slot='right')
                 el-button(size='mini'  type='primary' @click='newLifeShare') 新分享
-            sy-pagin-data(url='/public/artical/list')
+            sy-pagin-data(url='/public/artical/list' :query='{type:1}')
               template(slot-scope='scope')
                 .data-row(v-for='(row, idx) of scope.data' :key='idx') {{row.title}}
           .section
@@ -33,7 +33,7 @@
               template(slot='right')
                 el-button(size='mini' type='primary' @click='newTechShare') 新分享
 
-            sy-pagin-data(url='/public/artical/list')
+            sy-pagin-data(url='/public/artical/list' :query='{type:2}')
               template(slot-scope='scope')
                 .data-row(v-for='(row, idx) of scope.data' :key='idx') {{row.title}}
             

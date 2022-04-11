@@ -1,11 +1,11 @@
 <template lang="pug">
-  el-form(:rules='rules' ref='formRef' :model='model' label-width='100px')
+  el-form(:rules='rules' ref='formRef' :model='modified' label-width='100px')
     el-form-item(label='标题' prop='title')
-      el-input(v-model.trim='model.title')
+      el-input(v-model.trim='modified.title')
     el-form-item(label='类型' prop='type')
-      sy-options(type='2' :options='articalTypeOptions' v-model='model.type')
+      sy-options(type='2' :options='articalTypeOptions' v-model='modified.type')
     el-form-item(label='正文' prop='content')
-      mavon-editor.mavon-editor-panel(v-model='model.content')
+      mavon-editor.mavon-editor-panel(v-model='modified.content')
     el-form-item()
       el-button(type='primary' @click='apply') 新建
       el-button(@click='goback') 取消
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      model: {
+      modified: {
         title: '',
         type: this.$route.query.type,
         content: ''
@@ -51,6 +51,11 @@ export default {
     typeComp() {
       return this.$route.query.type
     }
+  },
+  methods: {
+    submitted() {
+      this.goto("home")
+    },
   }
 }
 </script>

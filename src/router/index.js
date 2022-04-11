@@ -20,7 +20,9 @@ router.beforeEach((to, from, next) => {
     if (user) {
       next()
     } else {
-      next()
+      utils.getCurrentUserAsync().then(next).catch(() => {
+        next("/login")
+      })
     }
   } else {
     next()

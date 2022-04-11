@@ -35,6 +35,8 @@ export default {
         require("@/assets/images/pano/02.jpeg"),
         require("@/assets/images/pano/03.jpeg"),
         require("@/assets/images/pano/04.jpeg"),
+        require("@/assets/images/pano/05.jpeg"),
+        require("@/assets/images/pano/06.jpeg"),
       ],
     };
   },
@@ -51,6 +53,7 @@ export default {
     width: 250px
     height: 180px
     .mask
+      z-index: 9998
       position: absolute
       top: 0
       bottom: 0
@@ -69,6 +72,7 @@ export default {
         color: white
 
 .fullscreen-pano-viewer
+  z-index: 9999
   position: fixed
   top: 0
   bottom: 0
