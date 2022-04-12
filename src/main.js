@@ -25,6 +25,9 @@ Vue.component("pano-viewer", PanoViewer);
 
 Vue.mixin({
   methods: {
+    getPanoUrl(filename) {
+      return `http://niu7.tsy.zone/img/pano/${filename}`
+    },
     goback() {
       this.$router.go(-1)
     },

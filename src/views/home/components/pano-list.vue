@@ -30,13 +30,21 @@ export default {
     return {
       currentPano: null,
       panos: [
-        require("@/assets/images/pano/00.jpeg"),
-        require("@/assets/images/pano/01.jpeg"),
-        require("@/assets/images/pano/02.jpeg"),
-        require("@/assets/images/pano/03.jpeg"),
-        require("@/assets/images/pano/04.jpeg"),
-        require("@/assets/images/pano/05.jpeg"),
-        require("@/assets/images/pano/06.jpeg"),
+        this.getPanoUrl('00.jpg'),
+        this.getPanoUrl('01.jpg'),
+        this.getPanoUrl('02.jpg'),
+        this.getPanoUrl('03.jpg'),
+        this.getPanoUrl('04.jpg'),
+        this.getPanoUrl('05.jpg'),
+        this.getPanoUrl('06.jpg'),
+        this.getPanoUrl('07.jpg'),
+        this.getPanoUrl('08.jpg'),
+        this.getPanoUrl('09.jpg'),
+        this.getPanoUrl('10.jpg'),
+        this.getPanoUrl('11.jpg'),
+        this.getPanoUrl('12.jpg'),
+        this.getPanoUrl('13.jpg'),
+        this.getPanoUrl('14.jpg'),
       ],
     };
   },
@@ -53,7 +61,6 @@ export default {
     width: 250px
     height: 180px
     .mask
-      z-index: 9998
       position: absolute
       top: 0
       bottom: 0
