@@ -14,6 +14,7 @@ import "mavon-editor/dist/css/index.css";
 import utils from '@/utils.js'
 
 import PanoViewer from "./components/pano-viewer/pano-viewer.vue";
+import Link from './components/link.vue'
 
 Vue.component('mavon-editor', mavonEditor)
 Vue.use(element);
@@ -21,6 +22,7 @@ Vue.use(tsy);
 Vue.config.productionTip = false;
 
 Vue.component("pano-viewer", PanoViewer);
+Vue.component("ll", Link)
 
 
 
@@ -68,12 +70,21 @@ Vue.mixin({
       return prom
     },
     goto(name, args = {}) {
-      const { params, query } = args;
-      this.$router.push({
-        name,
-        params,
-        query,
-      });
+      const { params, query, winTarget } = args;
+      if (!winTarget) {
+        this.$router.push({
+          name,
+          params,
+          query,
+        });
+      } else {
+        const route = this.$router.resolve({
+          name,
+          params,
+          query,
+        });
+        window.open(route.href, winTarget)
+      }
     },
   },
 });

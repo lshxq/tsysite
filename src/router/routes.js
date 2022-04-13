@@ -22,6 +22,27 @@ export default [
     meta: {
       loginNeeded: true
     },
-    component: () => import("@/views/blog/creation-index.vue")
+    component: () => import("@/views/blog/blog-creation-index.vue")
+  },
+  {
+    path: '/blog/:id/update',
+    name: 'blog-update',
+    meta: {
+      loginNeeded: true
+    },
+    component: () => import("@/views/blog/blog-update-index.vue")
+  },
+  {
+    path: '/blog/:id/viewer',
+    name: 'blog-viewer',
+    component: () => import("@/views/blog/blog-viewer-index.vue")
+  },
+  {
+    path: '/personal',
+    name: 'personal',
+    meta: {
+      loginNeeded: true
+    },
+    component: () => import("@/views/personal/personal-index.vue")
   }
 ];
