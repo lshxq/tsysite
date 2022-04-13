@@ -10,12 +10,12 @@ export default {
   data() {
     return {
       photos: [
-        "./assets/20220311102357.jpg",
-        "./assets/20220311102918.jpg",
-        "./assets/20220311102855.jpg",
-        "./assets/20220311102938.jpg",
-        "./assets/20220311102907.jpg",
-        "./assets/20220311102928.jpg",
+        this.getQiniuResource('site/img/20220311102357.jpg'),
+        this.getQiniuResource('site/img/20220311102855.jpg'),
+        this.getQiniuResource('site/img/20220311102907.jpg'),
+        this.getQiniuResource('site/img/20220311102918.jpg'),
+        this.getQiniuResource('site/img/20220311102928.jpg'),
+        this.getQiniuResource('site/img/20220311102938.jpg')
       ],
     };
   },
