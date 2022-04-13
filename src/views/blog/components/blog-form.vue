@@ -5,7 +5,7 @@
     el-form-item(label='类型' prop='type')
       sy-options(type='2' :options='articalTypeOptions' v-model='modified.type')
     el-form-item(label='正文' prop='content')
-      mavon-editor.mavon-editor-panel(v-model='modified.content')
+      mavon-editor.mavon-editor-panel(v-model='modified.content' ref='mdRef' @imgAdd="imgAdd")
     el-form-item()
       el-button(type='primary' @click='apply') 新建
       el-button(@click='goback') 取消
@@ -56,6 +56,15 @@ export default {
     submitted() {
       this.goto("home")
     },
+    imgAdd(pos, file) {
+      const that = this
+      that.uploadQiniu(file, "blog").then(resp => {
+        that.$refs.mdRef.$img2Url(pos, that.getQiniuResource(resp.key));
+      }).catch(ex => {
+        that.$message.error(ex)
+      })
+
+    }
   }
 }
 </script>

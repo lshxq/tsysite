@@ -7,6 +7,7 @@ import element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import router from "./router";
 import _ from 'lodash';
+import * as qiniu from 'qiniu-js'
 
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
@@ -25,8 +26,29 @@ Vue.component("pano-viewer", PanoViewer);
 
 Vue.mixin({
   methods: {
+    uploadQiniu(file, keySubfix) {
+      const that = this
+      return new Promise((res, rej) => {
+        that.$axios({
+          url: 'system/qiniu/token',
+        }).then(tokenResp => {
+          const token = tokenResp.data
+          const key = `site/${keySubfix}/${utils.guid()}`
+          const observable = qiniu.upload(file, key, token)
+          observable.subscribe((uploadInfo, chunks, total) => {
+            console.log(uploadInfo, chunks, total)
+          }, rej, resp => {
+            res(resp)
+          })
+        })
+      })
+      
+    },
+    getQiniuResource(file) {
+      return `http://niu7.tsy.zone/${file}`
+    },
     getPanoUrl(filename) {
-      return `http://niu7.tsy.zone/img/pano/${filename}`
+      return `${this.getQiniuResource(`img/pano/${filename}`)}`
     },
     goback() {
       this.$router.go(-1)
