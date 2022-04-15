@@ -7,8 +7,8 @@
     el-form-item(label='正文' prop='content')
       mavon-editor.mavon-editor-panel(v-model='modified.content' ref='mdRef' @imgAdd="imgAdd")
     el-form-item()
-      el-button(type='primary' @click='apply') 新建
-      el-button(@click='goback') 取消
+      el-button(type='primary' @click='apply') 保存
+      el-button(@click='canceled') 取消
 </template>
 
 <script>
@@ -54,7 +54,10 @@ export default {
   },
   methods: {
     submitted() {
-      this.goto("home")
+      this.goto("personal")
+    },
+    canceled() {
+      this.goto("personal")
     },
     imgAdd(pos, file) {
       const that = this

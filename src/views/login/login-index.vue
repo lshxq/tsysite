@@ -94,7 +94,7 @@ export default {
               that.$message.error(msg)
             } else if (token){
               utils.setCurrentUser(user, token)
-              that.goto("home")
+              that.goto("personal")
             } else {
               that.$message.error('服务器没有返回登陆token')
             }
