@@ -6,7 +6,7 @@
         template(slot='left')
           sy-options(v-model='query.type' type='1' :options='blogTypeOptions' label='文件类型')
         template(slot='right')
-          el-button(type='primary') 新建文章
+          el-button(type='primary' @click='goto("blog-creation")') 新建文章
 
       sy-pagin-table(
         url='personal/artical/list'

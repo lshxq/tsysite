@@ -8,14 +8,16 @@ import "element-ui/lib/theme-chalk/index.css";
 import router from "./router";
 import _ from 'lodash';
 import * as qiniu from 'qiniu-js'
-
+import VueCropper from "vue-cropper";
+Vue.use(VueCropper)
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import utils from '@/utils.js'
 
 import PanoViewer from "./components/pano-viewer/pano-viewer.vue";
 import Link from './components/link.vue'
-
+import ImageCropper from './components/image-cropper.vue'
+Vue.component('image-cropper', ImageCropper)
 Vue.component('mavon-editor', mavonEditor)
 Vue.use(element);
 Vue.use(tsy);

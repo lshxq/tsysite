@@ -1,4 +1,5 @@
 <template lang="pug">
+.blog-form-main-panel
   el-form(:rules='rules' ref='formRef' :model='modified' label-width='100px')
     el-form-item(label='标题' prop='title')
       el-input(v-model.trim='modified.title')
@@ -9,6 +10,16 @@
     el-form-item()
       el-button(type='primary' @click='apply') 保存
       el-button(@click='canceled') 取消
+
+  image-cropper(
+    v-if='imageCropperData' 
+    :img='imageCropperData.image' 
+    :fixed-size='false'
+    :max-img-size='800'
+    :image-width='800' 
+    :image-height='500' 
+    @applied='imageUpload'
+    @canceled='imageCanceled')
 </template>
 
 <script>
@@ -44,7 +55,8 @@ export default {
         title: '',
         type: this.$route.query.type,
         content: ''
-      }
+      },
+      imageCropperData: false
     }
   },
   computed: {
@@ -59,14 +71,54 @@ export default {
     canceled() {
       this.goto("personal")
     },
-    imgAdd(pos, file) {
+    imageCanceled() {
       const that = this
-      that.uploadQiniu(file, "blog").then(resp => {
-        that.$refs.mdRef.$img2Url(pos, that.getQiniuResource(resp.key));
+      const {
+        pos
+      } = that.imageCropperData
+      that.imageCropperData = null
+      const md = that.$refs.mdRef
+      md.$imgDel(pos)
+    },
+    imageUpload(image) {
+      const that = this
+      const {
+        pos
+      } = that.imageCropperData
+      const md = that.$refs.mdRef
+      that.uploadQiniu(image, "blog").then(resp => {
+        md.$img2Url(pos, that.getQiniuResource(resp.key));
       }).catch(ex => {
         that.$message.error(ex)
+      }).finally(() => {
+        that.imageCropperData = null
       })
-
+    },
+    imgAdd(pos, file) {
+      const that = this
+      console.log(file)
+      if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(file.name)) {
+        that.$message({
+          message: '图片类型要求：jpeg、jpg、png',
+          type: "error"
+        });
+        return false
+      }
+      //转化为blob
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        let data
+        if (typeof e.target.result === 'object') {
+          data = window.URL.createObjectURL(new Blob([e.target.result]))
+        } else {
+          data = e.target.result
+        }
+        that.imageCropperData = {
+          pos,
+          image: data
+        }
+      }
+      reader.readAsDataURL(file)
     }
   }
 }
