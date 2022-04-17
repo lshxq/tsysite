@@ -4,7 +4,9 @@
       .title.h3 文章管理
       sy-left-right.mb10
         template(slot='left')
-          sy-options(v-model='query.type' type='1' :options='blogTypeOptions' label='文件类型')
+          .flex-row
+            sy-search-input.mr10(v-model='query.keyword' placeholder='请输入关键字')
+            sy-options(v-model='query.type' type='1' :options='blogTypeOptions' label='文件类型')
         template(slot='right')
           el-button(type='primary' @click='goto("blog-creation")') 新建文章
 
@@ -15,6 +17,7 @@
       )
         template(v-slot:action='scope')
           el-button(type='primary' size='mini' @click='editArtical(scope.data.row)') 编辑
+          el-button(type='success' size='mini' @click='showArtical(scope.data.row)') 预览
 </template>
 
 <script>
@@ -53,7 +56,7 @@ export default {
       {
         label: '操作',
         slot: 'action',
-        width: 100
+        width: 200
       }
     ]
   },
@@ -65,6 +68,14 @@ export default {
     }
   },
   methods: {
+    showArtical(artical) {
+      this.goto("blog-viewer", {
+        winTarget: 'blog-viewer',
+        params: {
+          id: artical.id
+        }
+      })
+    },
     editArtical(artical) {
       this.goto("blog-update", {
         params: {
@@ -79,4 +90,8 @@ export default {
 <style lang="sass" scoped>
 .personal-index-main
   padding: 30px
+
+.flex-row
+  display: flex
+  flex-flow: row wrap
 </style>

@@ -13,12 +13,13 @@ Vue.use(VueCropper)
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import utils from '@/utils.js'
-
+import Editor from './components/mavon-editor-wrapper.vue'
 import PanoViewer from "./components/pano-viewer/pano-viewer.vue";
 import Link from './components/link.vue'
 import ImageCropper from './components/image-cropper.vue'
 Vue.component('image-cropper', ImageCropper)
 Vue.component('mavon-editor', mavonEditor)
+Vue.component('editor', Editor)
 Vue.use(element);
 Vue.use(tsy);
 Vue.config.productionTip = false;
@@ -30,6 +31,9 @@ Vue.component("ll", Link)
 
 Vue.mixin({
   methods: {
+    long2datetime(long, pattern='yyyy-MM-dd hh:mm:ss') {
+      return new Date(long).format(pattern)
+    },
     uploadQiniu(file, keySubfix) {
       const that = this
       return new Promise((res, rej) => {

@@ -1,12 +1,17 @@
 <template lang="pug">
   .blog-viewer-index-main(v-loading='loading')
-    .title {{blog.title}}
-    mavon-editor.mavon-view-panel(
-      :value='blog.content' 
-      default-open='preview'
-      :editable='false'
-      :toolbarsFlag='false'
-      :subfield='false')
+    .narrow
+      sy-left-right
+        template(slot='left')
+          .title {{blog.title}}
+        template(slot='right')
+          .created {{long2datetime(blog.created)}}
+      mavon-editor.mavon-view-panel(
+        :value='blog.content' 
+        default-open='preview'
+        :editable='false'
+        :toolbarsFlag='false'
+        :subfield='false')
 </template>
 
 <script>
@@ -47,9 +52,17 @@ export default {
 
 <style lang="sass" scoped>
 .blog-viewer-index-main
-  height: 100%
-  .title
-    height: 50px
-  .mavon-view-panel
-    height: calc(100% - 50px)
+  user-select: none
+  background: #fafafa
+  .narrow
+    background: white
+    width: 80%
+    margin: 0 auto
+    .title
+      padding: 10px
+      font-size: 40px
+    .created
+      color: gray
+      padding: 10px
+    .mavon-view-panel
 </style>
