@@ -1,5 +1,5 @@
 <template lang="pug">
-.blog-form-main-panel
+.blog-form-main-panel(v-loading='locking')
   el-form(:rules='rules' ref='formRef' :model='modified' label-width='100px')
     el-form-item(label='标题' prop='title')
       el-input(v-model.trim='modified.title')
@@ -11,15 +11,6 @@
       el-button(type='primary' @click='apply') 保存
       el-button(@click='canceled') 取消
 
-  image-cropper(
-    v-if='imageCropperData' 
-    :img='imageCropperData.image' 
-    :fixed-size='false'
-    :max-img-size='800'
-    :image-width='800' 
-    :image-height='500' 
-    @applied='imageUpload'
-    @canceled='imageCanceled')
 </template>
 
 <script>

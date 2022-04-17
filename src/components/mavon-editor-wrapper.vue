@@ -1,6 +1,15 @@
 <template lang="pug">
   .mavon-editor-main
     mavon-editor.mavon-editor-panel(:value='value' ref='mdRef' @imgAdd="imgAdd" :toolbars='toolbars' @input='updateValue')
+    image-cropper(
+      v-if='imageCropperData' 
+      :img='imageCropperData.image' 
+      :fixed-size='false'
+      :max-img-size='800'
+      :image-width='800' 
+      :image-height='500' 
+      @applied='imageUpload'
+      @canceled='imageCanceled')
 </template>
 
 <script>
@@ -54,7 +63,11 @@ export default {
       }
     }
   },
-
+  data() {
+    return {
+      imageCropperData: null
+    }
+  },
   methods: {
     updateValue(value) {
       this.$emit('input', value)
