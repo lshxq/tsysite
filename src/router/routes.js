@@ -44,5 +44,21 @@ export default [
       loginNeeded: true
     },
     component: () => import("@/views/personal/personal-index.vue")
-  }
+  },
+  {
+    path: '/pano/list',
+    name: 'pano-list',
+    meta: {
+      loginNeeded: true
+    },
+    component: () => import("@/views/pano/pano-list-index.vue")
+  },
+  {
+    path: '/pano/create',
+    name: 'pano-create',
+    meta: {
+      loginNeeded: true
+    },
+    component: () => import("@/views/pano/pano-create-index.vue")
+  },
 ];

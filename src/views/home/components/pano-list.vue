@@ -1,10 +1,12 @@
 <template lang="pug">
   .pano-list-main
-    .panoramas
-      .item(v-for='(pano, idx) of panos' :key='idx')
-        pano-viewer(:img='pano' :cfg='panoCfg')
-        .mask(@click='currentPano = pano')
-          .text 显示全景
+    sy-pagin-data(url='public/pano/list')
+      template(slot-scope='scope')
+        .panoramas
+          .item(v-for='(pano, idx) of scope.data' :key='idx')
+            pano-viewer(:img='getQiniuResource(pano.qiniuKey)' :cfg='panoCfg')
+            .mask(@click='currentPano = getQiniuResource(pano.qiniuKey)')
+              .text 显示全景
 
     .fullscreen-pano-viewer(v-if='!!currentPano')
       pano-viewer(:img='currentPano' :cfg='currentPanoCfg')

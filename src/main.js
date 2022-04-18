@@ -34,7 +34,7 @@ Vue.mixin({
     long2datetime(long, pattern='yyyy-MM-dd hh:mm:ss') {
       return new Date(long).format(pattern)
     },
-    uploadQiniu(file, keySubfix) {
+    uploadQiniu(file, keySubfix, onProgress) {
       const that = this
       return new Promise((res, rej) => {
         that.$axios({
@@ -45,6 +45,9 @@ Vue.mixin({
           const observable = qiniu.upload(file, key, token)
           observable.subscribe((uploadInfo, chunks, total) => {
             console.log(uploadInfo, chunks, total)
+            if (onProgress) {
+              onProgress(uploadInfo)
+            }
           }, rej, resp => {
             res(resp)
           })
