@@ -14,8 +14,8 @@
       :columns='articalColumns'
     )
       template(v-slot:action='scope')
-        el-button(type='primary' size='mini' @click='editArtical(scope.data.row)') 编辑
-        el-button(type='success' size='mini' @click='showArtical(scope.data.row)') 预览
+        el-button(type='primary' size='mini' @click='editPano(scope.data.row)') 编辑
+        el-button(type='success' size='mini' @click='showPano(scope.data.row)') 预览
 
 </template>
 
@@ -29,9 +29,35 @@ export default {
         label: '标题'
       },
       {
+        prop: 'high',
+        label: '海拔高度'
+      },
+      {
+        prop: 'longitude',
+        label: '经度'
+      },
+      {
+        prop: 'latitude',
+        label: '纬度'
+      },
+      {
+        label: '拍摄日期',
+        getContent(data) {
+          return new Date(data.row.shotDate).format()
+        },
+        width: 170
+      },
+      {
         label: '创建日期',
         getContent(data) {
           return new Date(data.row.created).format()
+        },
+        width: 170
+      },
+      {
+        label: '更新日期',
+        getContent(data) {
+          return new Date(data.row.updated).format()
         },
         width: 170
       },
@@ -50,18 +76,18 @@ export default {
     }
   },
   methods: {
-    showArtical(artical) {
-      this.goto("blog-viewer", {
-        winTarget: 'blog-viewer',
+    showPano(pano) {
+      this.goto("pano-viewer", {
+        winTarget: `pano-viewer-${pano.qiniuId}`,
         params: {
-          id: artical.id
+          id: pano.qiniuId
         }
       })
     },
-    editArtical(artical) {
-      this.goto("blog-update", {
+    editPano(pano) {
+      this.goto("pano-update", {
         params: {
-          id: artical.id
+          id: pano.qiniuId
         }
       })
     }

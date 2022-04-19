@@ -62,6 +62,14 @@ export default [
     component: () => import("@/views/pano/pano-create-index.vue")
   },
   {
+    path: '/pano/:id/update',
+    name: 'pano-update',
+    meta: {
+      loginNeeded: true
+    },
+    component: () => import("@/views/pano/pano-update-index.vue")
+  },
+  {
     path: '/pano/:id/viewer',
     name: 'pano-viewer',
     meta: {

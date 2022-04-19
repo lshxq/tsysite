@@ -71,7 +71,7 @@ export default {
   methods: {
     showArtical(artical) {
       this.goto("blog-viewer", {
-        winTarget: 'blog-viewer',
+        winTarget: `blog-viewer-${artical.id}`,
         params: {
           id: artical.id
         }

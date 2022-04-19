@@ -11,7 +11,10 @@
         default-open='preview'
         :editable='false'
         :toolbarsFlag='false'
-        :subfield='false')
+        :subfield='false'
+        :boxShadow='false'
+        previewBackground='white'
+        :html='false')
 </template>
 
 <script>

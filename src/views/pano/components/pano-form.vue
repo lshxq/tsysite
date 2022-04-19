@@ -14,8 +14,16 @@
 
     el-form-item(label='标题' prop='title')
       el-input(v-model.trim='modified.title')
+
     el-form-item(label='正文' prop='content')
       editor.mavon-editor-panel(v-model='modified.content' image-upload-folder='pano')
+
+    el-form-item(label='海拔高度' prop='high')
+      el-input-number(v-model='modified.high' :min='-100' :max='3000')
+    
+    el-form-item(label='拍摄日期' prop='shotDate')
+      el-date-picker(v-model='modified.shotDate' type="datetime" placeholder="选择拍摄日期" format='yyyy-MM-dd hh:mm:ss')
+
     el-form-item()
       el-button(type='primary' @click='apply') 保存
       el-button(@click='canceled') 取消
