@@ -23,6 +23,13 @@
     
     el-form-item(label='拍摄日期' prop='shotDate')
       el-date-picker(v-model='modified.shotDate' type="datetime" placeholder="选择拍摄日期" format='yyyy-MM-dd hh:mm:ss')
+    el-form-item(label='定位')
+      .ditu-panel
+        baidu-map.h0(:zoom='13' :center='mapCenter')
+          bm-navigation(anchor="BMAP_ANCHOR_TOP_LEFT")
+          bm-city-list(anchor="BMAP_ANCHOR_TOP_RIGHT")
+          bm-geolocation(anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true")
+          bm-marker(:position='{lng: 116.404, lat: 39.915}' :dragging="true" @dragend='updateMarkerPosition')
 
     el-form-item()
       el-button(type='primary' @click='apply') 保存
@@ -49,7 +56,6 @@ export default {
         { required: true, message: "请书写文章", trigger: "blur" },
       ],
     };
-
   },
   data() {
     return {
@@ -58,14 +64,45 @@ export default {
         title: '',
         content: '',
         qiniuKey: '',
-        latitude: '', // 纬度
-        longitude: '' // 经度
+        latitude: 39.915, // 纬度
+        longitude: 116.404 // 经度
       },
+      mapCenter: {
+        lat: 39.915,
+        lng: 116.404
+      }
     }
   },
   computed: {
   },
+  mounted() {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {  
+          const {
+            longitude,
+            latitude,
+          } = position.coords
+          this.mapCenter = {
+            lat: latitude,
+            lng: longitude
+          }
+        },
+        function (e) {
+           console.error(e);
+        }
+      ) 
+    }
+  },
   methods: {
+    updateMarkerPosition(event) {
+      const {
+        lat,
+        lng
+      } = event.point
+      this.modified.longitude = lng
+      this.modified.latitude = lat
+    },
     uploadPano(param) {
 
       const that = this
@@ -92,5 +129,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+.pano-form-main-panel
+  padding: 30px
+.ditu-panel
+  height: 400px
 </style>

@@ -27,7 +27,11 @@ Vue.config.productionTip = false;
 Vue.component("pano-viewer", PanoViewer);
 Vue.component("ll", Link)
 
-
+import BaiduMap from 'vue-baidu-map'
+Vue.use(BaiduMap, {
+  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+  ak: 'HLMbUFR3t3Hu082LfMnf9ZLFR723i99w'
+})
 
 Vue.mixin({
   methods: {

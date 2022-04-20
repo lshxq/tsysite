@@ -16,6 +16,7 @@
     "qiniu-js": "^3.4.0",
     "tsyvue": "^0.1.12",
     "vue": "^2.6.11",
+    "vue-baidu-map": "^0.21.22",
     "vue-cropper": "^0.5.8",
     "vue-router": "^3.0.0"
   },

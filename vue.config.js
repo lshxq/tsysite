@@ -5,10 +5,10 @@ module.exports = {
     port: 8080,
     proxy: {
       "/site-api": {
-        target: "http://localhost:8081/", //代理地址，这里设置的地址会代替axios中设置的baseURL
+        target: "http://121.40.72.215/", //代理地址，这里设置的地址会代替axios中设置的baseURL
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {
-          "^/api": "/site-api",
+          "^/site-api": "/site-api",
         },
       },
     },
