@@ -25,11 +25,11 @@
       el-date-picker(v-model='modified.shotDate' type="datetime" placeholder="选择拍摄日期" format='yyyy-MM-dd hh:mm:ss')
     el-form-item(label='定位')
       .ditu-panel
-        baidu-map.h0(:zoom='13' :center='mapCenter')
+        baidu-map.h0(:zoom='13' :center='mapCenter' @click='mapClicked')
           bm-navigation(anchor="BMAP_ANCHOR_TOP_LEFT")
           bm-city-list(anchor="BMAP_ANCHOR_TOP_RIGHT")
           bm-geolocation(anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true")
-          bm-marker(:position='{lng: 116.404, lat: 39.915}' :dragging="true" @dragend='updateMarkerPosition')
+          bm-marker(:position='{lng: modified.longitude, lat: modified.latitude}' :dragging="true" @dragend='updateMarkerPosition')
 
     el-form-item()
       el-button(type='primary' @click='apply') 保存
@@ -95,6 +95,9 @@ export default {
     }
   },
   methods: {
+    mapClicked(event) {
+      this.updateMarkerPosition(event)
+    },
     updateMarkerPosition(event) {
       const {
         lat,
@@ -132,5 +135,5 @@ export default {
 .pano-form-main-panel
   padding: 30px
 .ditu-panel
-  height: 400px
+  height: 600px
 </style>

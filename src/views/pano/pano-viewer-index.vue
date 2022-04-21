@@ -31,9 +31,10 @@
             .value {{long2datetime(pano.created)}}
 
         #ditu-container.ditu-panel(v-if='showDitu')
-          baidu-map.h0(:zoom='13' :center=' { lng: 110, lat: 23 }')
+          baidu-map.h0(:zoom='13' :center=' { lng: pano.longitude, lat: pano.latitude }')
             bm-navigation(anchor="BMAP_ANCHOR_TOP_LEFT")
             bm-city-list(anchor="BMAP_ANCHOR_TOP_RIGHT")
+            bm-marker(:position='{lng: pano.longitude, lat: pano.latitude}' :dragging="false")
             // bm-geolocation(anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true")
 
 </template>
