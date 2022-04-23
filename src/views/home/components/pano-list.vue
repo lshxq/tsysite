@@ -4,7 +4,7 @@
       template(slot-scope='scope')
         .panoramas
           .item(v-for='(pano, idx) of scope.data' :key='idx')
-            pano-viewer(:img='getQiniuResource(pano.qiniuKey)' :cfg='panoCfg')
+            pano-viewer(:img='getUploadedResource(`pano/${fileId2Preview(pano.fileId)}`)' :cfg='panoCfg')
             .title-bar {{pano.title}}
             .mask(@click='showPano(pano)')
               .text 显示全景
@@ -28,13 +28,16 @@ export default {
     };
   },
   methods: {
+    fileId2Preview(fileId) {
+      const root = fileId.substring(0, fileId.indexOf('.'))
+      return `${root}-preview.jpg`
+    },
     showPano(pano) {
-      console.log(pano)
       this.goto('pano-viewer', {
         params: {
-          id: pano.qiniuId
+          id: pano.fileId
         },
-        winTarget: `pano-viewer-${pano.qiniuId}`
+        winTarget: `pano-viewer-${pano.fileId}`
       })
     }
   }

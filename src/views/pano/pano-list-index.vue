@@ -9,8 +9,8 @@ export default {
     panoUpload() {
       const that = this
       const image = {}
-      that.uploadQiniu(image, 'pano').then(resp => {
-        console.log(that.getQiniuResource(resp.key))
+      that.upload(image, 'pano').then(resp => {
+        console.log(that.getUploadedResource(resp.key))
       }).catch(ex => {
         that.$message.error(ex)
       }).finally(() => {

@@ -1,6 +1,6 @@
 <template lang="pug">
   .pano-viewer-main(v-loading='!pano || loading')
-    pano-viewer(v-if='pano' :img='getQiniuResource(pano.qiniuKey)' :cfg='panoCfg')
+    pano-viewer(v-if='pano' :img='getUploadedResource(`pano/${pano.fileId}`)' :cfg='panoCfg')
     .el-icon-info(@click='drawer.visible = true')
     el-drawer(title="全景信息" direction='rtl' :visible.sync="drawer.visible")
       .drawer-panel
@@ -33,9 +33,7 @@
         #ditu-container.ditu-panel(v-if='showDitu')
           baidu-map.h0(:zoom='13' :center=' { lng: pano.longitude, lat: pano.latitude }')
             bm-navigation(anchor="BMAP_ANCHOR_TOP_LEFT")
-            bm-city-list(anchor="BMAP_ANCHOR_TOP_RIGHT")
-            bm-marker(:position='{lng: pano.longitude, lat: pano.latitude}' :dragging="false")
-            // bm-geolocation(anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true")
+            bm-marker(:position='{lng: pano.longitude, lat: pano.latitude}' :dragging="false" animation="BMAP_ANIMATION_BOUNCE")
 
 </template>
 
@@ -60,15 +58,15 @@ export default {
   },
   mounted() {
     const {
-      qiniuId
+      id
     } = this
-    this.getPanoByQiniuId(qiniuId)
+    this.getPanoById(id)
   },
   computed: {
     panoDesc() {
       return _.get(this, 'pano.content')
     },
-    qiniuId() {
+    id() {
       return this.$route.params.id
     },
     showDitu() {
@@ -81,10 +79,10 @@ export default {
 
   },
   methods: {
-    getPanoByQiniuId(qiniuId) {
+    getPanoById(id) {
       this.loading = true
       this.$axios({
-        url: `public/pano/${qiniuId}`,
+        url: `public/pano/${id}`,
       }).then(resp => {
         this.pano = resp.data
       }).finally(() => {

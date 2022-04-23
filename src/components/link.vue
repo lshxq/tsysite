@@ -1,5 +1,5 @@
 <template lang="pug">
-  .link-main(@click='linkClicked') {{text}}
+  .link-main(@click.prevent.stop='linkClicked') {{text}}
 </template>
 
 <script>

@@ -110,11 +110,8 @@ export default {
 
       const that = this
       that.uploading = true
-      that.uploadQiniu(param.file, 'pano', uploadInfo => {
-        const {
-          percent
-        } = uploadInfo.total
-        param.file.percent = percent
+      that.upload(param.file, 'pano', uploadInfo => {
+        console.log(uploadInfo)
       }).then(resp => {
         const {key} = resp
         that.modified.qiniuKey = key

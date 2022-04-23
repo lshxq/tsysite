@@ -9,7 +9,7 @@
         el-button(type='primary' @click='goto("pano-create")') 新建全景图
 
     sy-pagin-table(
-      url='personal/pano/list'
+      url='pano/list'
       :query='query'
       :columns='articalColumns'
     )
@@ -80,14 +80,14 @@ export default {
       this.goto("pano-viewer", {
         winTarget: `pano-viewer-${pano.qiniuId}`,
         params: {
-          id: pano.qiniuId
+          id: pano.id
         }
       })
     },
     editPano(pano) {
       this.goto("pano-update", {
         params: {
-          id: pano.qiniuId
+          id: pano.id
         }
       })
     }

@@ -76,4 +76,12 @@ export default [
     },
     component: () => import("@/views/pano/pano-viewer-index.vue")
   },
+  {
+    path: '/pano/:id/editor',
+    name: 'pano-editor',
+    meta: {
+      loginNeeded: true
+    },
+    component: () => import("@/views/pano/pano-editor-index.vue")
+  },
 ];

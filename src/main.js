@@ -7,7 +7,6 @@ import element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import router from "./router";
 import _ from 'lodash';
-import * as qiniu from 'qiniu-js'
 import VueCropper from "vue-cropper";
 Vue.use(VueCropper)
 import { mavonEditor } from "mavon-editor";
@@ -38,32 +37,38 @@ Vue.mixin({
     long2datetime(long, pattern='yyyy-MM-dd hh:mm:ss') {
       return new Date(long).format(pattern)
     },
-    uploadQiniu(file, keySubfix, onProgress) {
+    upload(file, func='default', filename, onProgress) {
       const that = this
+      const formData = new FormData()
+
+      formData.append('file', file)
+      if (func) {
+        formData.append('func', func)
+      }
+      formData.append('id', filename)
+
       return new Promise((res, rej) => {
         that.$axios({
-          url: 'system/qiniu/token',
-        }).then(tokenResp => {
-          const token = tokenResp.data
-          const key = `site/${keySubfix}/${utils.guid()}`
-          const observable = qiniu.upload(file, key, token)
-          observable.subscribe((uploadInfo, chunks, total) => {
-            console.log(uploadInfo, chunks, total)
-            if (onProgress) {
-              onProgress(uploadInfo)
+          url: 'system/upload',
+          method: 'POST',
+          data: formData,
+          onUploadProgress: e => {
+            if(onProgress) {
+              onProgress(e)
             }
-          }, rej, resp => {
-            res(resp)
-          })
-        })
+          }
+
+        }).then(resp => {
+          res(resp)
+        }).catch(rej)
       })
       
     },
-    getQiniuResource(file) {
-      return `http://niu7.tsy.zone/${file}`
+    getUploadedResource(file) {
+      return `/site-upload/${file}`
     },
     getPanoUrl(filename) {
-      return `${this.getQiniuResource(`img/pano/${filename}`)}`
+      return `${this.getUploadedResource(`img/pano/${filename}`)}`
     },
     goback() {
       this.$router.go(-1)

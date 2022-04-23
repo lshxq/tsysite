@@ -1,6 +1,5 @@
 <template lang="pug">
   .login-index-main
-    pano-viewer(:img='backgroundComp' :cfg='panoCfg')
     .mask
       .login-panel(v-loading='loading')
         .title 登录
@@ -116,6 +115,7 @@ export default {
   position: relative
 
   .mask
+    background: #f0f0f0
     position: absolute
     top: 0
     right: 0

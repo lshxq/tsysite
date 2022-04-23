@@ -90,8 +90,8 @@ export default {
         pos
       } = that.imageCropperData
       const md = that.$refs.mdRef
-      that.uploadQiniu(image, imageUploadFolder).then(resp => {
-        md.$img2Url(pos, that.getQiniuResource(resp.key));
+      that.upload(image, imageUploadFolder).then(resp => {
+        md.$img2Url(pos, that.getUploadedResource(resp.key));
       }).catch(ex => {
         that.$message.error(ex)
       }).finally(() => {

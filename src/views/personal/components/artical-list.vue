@@ -10,7 +10,7 @@
         el-button(type='primary' @click='goto("blog-creation")') 新建文章
 
     sy-pagin-table(
-      url='personal/artical/list'
+      url='artical/list'
       :query='query'
       :columns='articalColumns'
     )

@@ -25,13 +25,16 @@ export default {
     },
   },
   mounted() {
-    const viewerEle = this.$refs.viewerRef;
-    this.viewer = new Viewer({
+    const that = this
+    const viewerEle = that.$refs.viewerRef;
+    that.viewer = new Viewer({
       container: viewerEle.children[0],
       panorama: this.img,
-      ...this.cfg,
+      ...that.cfg,
     });
-    this.viewer.navbar.hide();
+    that.viewer.on('click', (e, data) => {
+      that.$emit('click', e, data)
+    })
   },
   destroyed() {
     this.viewer.destroy();
