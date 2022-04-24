@@ -1,7 +1,7 @@
 <template lang="pug">
   .pano-create-main
     .title.h3 新建全景图
-    pano-form(url='personal/pano' :id='id' :get-data-url="`public/pano/${id}`")
+    pano-form(url='pano' :id='id' :get-data-url="`public/pano/${id}`")
 </template>
 
 <script>

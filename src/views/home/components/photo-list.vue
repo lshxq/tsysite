@@ -10,21 +10,16 @@ export default {
   data() {
     return {
       photos: [
-        this.getUploadedResource('site/img/20220311102357.jpg'),
-        this.getUploadedResource('site/img/20220311102855.jpg'),
-        this.getUploadedResource('site/img/20220311102907.jpg'),
-        this.getUploadedResource('site/img/20220311102918.jpg'),
-        this.getUploadedResource('site/img/20220311102928.jpg'),
-        this.getUploadedResource('site/img/20220311102938.jpg')
+        this.getUploadedResource('img/20220311102357.jpg'),
+        this.getUploadedResource('img/20220311102855.jpg'),
+        this.getUploadedResource('img/20220311102907.jpg'),
+        this.getUploadedResource('img/20220311102918.jpg'),
+        this.getUploadedResource('img/20220311102928.jpg'),
+        this.getUploadedResource('img/20220311102938.jpg')
       ],
     };
   },
   methods: {
-    photoStyle() {
-      return {
-        transform: `rotate(${5 - Math.floor(Math.random() * 10)}deg)`,
-      };
-    },
   },
 };
 </script>

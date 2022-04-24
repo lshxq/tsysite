@@ -1,6 +1,6 @@
 <template lang="pug">
   .pano-viewer-main(v-loading='!pano || loading')
-    pano-viewer(v-if='pano' :img='getUploadedResource(`pano/${pano.fileId}`)' :cfg='panoCfg')
+    pano-viewer(v-if='pano' :img='getUploadedResource(`pano/${pano.file}`)' :cfg='panoCfg')
     .el-icon-info(@click='drawer.visible = true')
     el-drawer(title="全景信息" direction='rtl' :visible.sync="drawer.visible")
       .drawer-panel

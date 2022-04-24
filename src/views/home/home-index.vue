@@ -15,8 +15,6 @@
         .block-section
           .site-map
             a.item(href='/tsyvue/') tsyvue 教程
-            a.item(href='/pano/') 全景图
-            a.item(href='/beautyshop/') Beautyshop
 
         .block
           .section

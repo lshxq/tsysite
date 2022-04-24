@@ -1,11 +1,20 @@
 <template lang="pug">
 .pano-form-main-panel(v-loading='locking || uploading')
   el-form(:rules='rules' ref='formRef' :model='modified' label-width='100px')
-    el-form-item(label='全景图')
+    el-form-item(label='全景图' v-if='editMode')
       el-upload(
         action=''
         :http-request='uploadPano'
-        class="upload-demo"
+        drag
+        :multiple='false')
+        i.el-icon-upload
+        .el-upload__text 将文件拖到此处，或<em>点击上传</em>
+        .upload__tip( slot="tip") 只能上传jpg/png文件
+
+    el-form-item(label='全景缩略图'  v-if='editMode')
+      el-upload(
+        action=''
+        :http-request='uploadPanoPreview'
         drag
         :multiple='false')
         i.el-icon-upload
@@ -29,7 +38,7 @@
           bm-navigation(anchor="BMAP_ANCHOR_TOP_LEFT")
           bm-city-list(anchor="BMAP_ANCHOR_TOP_RIGHT")
           bm-geolocation(anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true")
-          bm-marker(:position='{lng: modified.longitude, lat: modified.latitude}' :dragging="true" @dragend='updateMarkerPosition')
+          bm-marker(v-if='modified.longitude && modified.latitude' :position='{lng: modified.longitude, lat: modified.latitude}' :dragging="true" @dragend='updateMarkerPosition')
 
     el-form-item()
       el-button(type='primary' @click='apply') 保存
@@ -42,6 +51,7 @@ import tsy from 'tsyvue'
 const {
   FormMixin
 } = tsy
+import utils from '@/utils.js'
 
 export default {
   mixins: [FormMixin],
@@ -64,37 +74,26 @@ export default {
         title: '',
         content: '',
         qiniuKey: '',
-        latitude: 39.915, // 纬度
-        longitude: 116.404 // 经度
+        latitude: 0, // 纬度
+        longitude: 0 // 经度
       },
       mapCenter: {
-        lat: 39.915,
-        lng: 116.404
+        lat: 0,
+        lng: 0
       }
     }
   },
   computed: {
   },
   mounted() {
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        position => {  
-          const {
-            longitude,
-            latitude,
-          } = position.coords
-          this.mapCenter = {
-            lat: latitude,
-            lng: longitude
-          }
-        },
-        function (e) {
-           console.error(e);
-        }
-      ) 
-    }
+    
   },
   methods: {
+    dataLoaded(model) {
+      this.mapCenter.lat = model.latitude
+      this.mapCenter.lng = model.longitude
+      return model
+    },
     mapClicked(event) {
       this.updateMarkerPosition(event)
     },
@@ -106,16 +105,57 @@ export default {
       this.modified.longitude = lng
       this.modified.latitude = lat
     },
-    uploadPano(param) {
-
+    uploadCore(param, filename) {
+      console.log(param, filename)
+      
       const that = this
       that.uploading = true
-      that.upload(param.file, 'pano', uploadInfo => {
+      
+      return that.upload(param.file, 'pano', filename, uploadInfo => {
         console.log(uploadInfo)
       }).then(resp => {
         const {key} = resp
         that.modified.qiniuKey = key
         that.uploading = false
+      }).finally(() => {
+        that.loading = false
+      })
+      
+    },
+    uploadPano(param) {
+      const that = this
+      const {
+        id
+      } = that
+      const {
+        file
+      } = param
+      if (file.size > 25 * 1024 * 1024) {
+        that.$message.error("全景图不能大于25M")
+        return 
+      } 
+      const filename = `${id}${utils.getFileExtention(file.name)}`
+      that.uploadCore(param, filename).then(resp => {
+        console.log(resp)
+        that.modified.file = filename
+      })
+    },
+    uploadPanoPreview(param) {
+      const that = this
+      const {
+        id
+      } = that
+      const {
+        file
+      } = param
+      if (file.size > 2 * 1024 * 1024) {
+        that.$message.error("全景图缩略图不能大于2M")
+        return 
+      } 
+      const filename = `${id}-preview${utils.getFileExtention(param.file.name)}`
+      that.uploadCore(param, filename).then(resp => {
+        console.log(resp)
+        that.modified.preview = filename
       })
     },
     submitted() {

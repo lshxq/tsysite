@@ -60,7 +60,10 @@ Vue.mixin({
 
         }).then(resp => {
           res(resp)
-        }).catch(rej)
+        }).catch(ex => {
+          that.$message.error(`文件 ${func}/${filename} 上传失败`)
+          rej(ex)
+        })
       })
       
     },

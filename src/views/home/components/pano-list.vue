@@ -4,8 +4,11 @@
       template(slot-scope='scope')
         .panoramas
           .item(v-for='(pano, idx) of scope.data' :key='idx')
-            pano-viewer(:img='getUploadedResource(`pano/${fileId2Preview(pano.fileId)}`)' :cfg='panoCfg')
-            .title-bar {{pano.title}}
+            pano-viewer(:img='getUploadedResource(`pano/${pano.preview}`)' :cfg='panoCfg')
+            .title-bar 
+              sy-left-right
+                template(slot='left') {{pano.title}}
+                template(slot='right') 海拔{{pano.high}}米
             .mask(@click='showPano(pano)')
               .text 显示全景
 
@@ -28,16 +31,12 @@ export default {
     };
   },
   methods: {
-    fileId2Preview(fileId) {
-      const root = fileId.substring(0, fileId.indexOf('.'))
-      return `${root}-preview.jpg`
-    },
     showPano(pano) {
       this.goto('pano-viewer', {
         params: {
-          id: pano.fileId
+          id: pano.id
         },
-        winTarget: `pano-viewer-${pano.fileId}`
+        winTarget: `pano-viewer-${pano.id}`
       })
     }
   }

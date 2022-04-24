@@ -1,7 +1,7 @@
 <template lang="pug">
   .pano-create-main
     .title.h3 新建全景图
-    pano-form(url='personal/pano')
+    pano-form(url='pano')
 </template>
 
 <script>
@@ -11,6 +11,5 @@ export default {
   components: {
     PanoForm
   }
-  
 }
 </script>
