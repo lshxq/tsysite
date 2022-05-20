@@ -91,7 +91,7 @@ export default {
       } = that.imageCropperData
       const md = that.$refs.mdRef
       that.upload(image, imageUploadFolder).then(resp => {
-        md.$img2Url(pos, that.getUploadedResource(resp.key));
+        md.$img2Url(pos, that.getUploadedResource(`${imageUploadFolder}/${resp.data.id}`));
       }).catch(ex => {
         that.$message.error(ex)
       }).finally(() => {

@@ -2,7 +2,7 @@
   .blog-creation-index-main
     .header 新建文章
     .form-panel
-      blog-form(url='personal/artical' :id='blogId' :get-data-url="`public/artical/${blogId}`")
+      blog-form(url='artical' :id='blogId' :get-data-url="`public/artical/${blogId}`")
 </template>
 
 <script>

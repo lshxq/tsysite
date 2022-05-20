@@ -45,7 +45,10 @@ Vue.mixin({
       if (func) {
         formData.append('func', func)
       }
-      formData.append('id', filename)
+      if (filename || filename === 0) {
+        formData.append('id', filename)
+      }
+      
 
       return new Promise((res, rej) => {
         that.$axios({

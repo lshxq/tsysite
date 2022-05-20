@@ -2,7 +2,7 @@
   .blog-creation-index-main
     .header 新建文章
     .form-panel
-      blog-form(url='personal/artical')
+      blog-form(url='artical')
 </template>
 
 <script>
