@@ -32,30 +32,30 @@ export default {
   data() {
     return {
       photos: [
-        this.getUploadedResource('img/20220311102357.jpg'),
-        this.getUploadedResource('img/20220311102855.jpg'),
-        this.getUploadedResource('img/20220311102907.jpg'),
-        this.getUploadedResource('img/20220311102918.jpg'),
-        this.getUploadedResource('img/20220311102928.jpg'),
-        this.getUploadedResource('img/20220311102938.jpg')
+        this.getUploadedResource("img/20220311102357.jpg"),
+        this.getUploadedResource("img/20220311102855.jpg"),
+        this.getUploadedResource("img/20220311102907.jpg"),
+        this.getUploadedResource("img/20220311102918.jpg"),
+        this.getUploadedResource("img/20220311102928.jpg"),
+        this.getUploadedResource("img/20220311102938.jpg"),
       ],
     };
   },
   methods: {
     newLifeShare() {
-      this.goto("blog-creation", {query: {type: '1'}})
+      this.goto("blog-creation", { query: { type: "1" } });
     },
     newTechShare() {
-      this.goto("blog-creation", {query: {type: '2'}})
+      this.goto("blog-creation", { query: { type: "2" } });
     },
     showArtical(artical) {
-      this.goto('blog-viewer', {
+      this.goto("blog-viewer", {
         params: {
-          id: artical.id
+          id: artical.id,
         },
-        winTarget: `blog_viewer_${new Date().getTime()}`
-      })
-    }
+        winTarget: `blog_viewer_${new Date().getTime()}`,
+      });
+    },
   },
 };
 </script>
@@ -86,5 +86,4 @@ export default {
     .block-section
       .title
         padding-left: 10px
-    
 </style>

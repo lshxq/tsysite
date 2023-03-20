@@ -2,8 +2,11 @@
   #app-main-panel-pc
     .narrow
       .header
-        .title.red TSY ZONE
+        text-canvas
       .body
+        .block-section
+          line-point-canvas
+
         .block-section
           .title 快乐时光
           photo-list
@@ -38,44 +41,51 @@
 
 <script>
 import PhotoList from "./photo-list.vue";
+import TextCanvas from "./text-canvas.vue";
 import PanoList from "./pano-list.vue";
+import LinePointCanvas from "./line-point-canvas.vue";
 
 export default {
   name: "App",
   components: {
     PanoList,
     PhotoList,
+    LinePointCanvas,
+    TextCanvas,
   },
   data() {
     return {};
   },
+
   methods: {
     newLifeShare() {
-      this.goto("blog-creation", {query: {type: '1'}})
+      this.goto("blog-creation", { query: { type: "1" } });
     },
     newTechShare() {
-      this.goto("blog-creation", {query: {type: '2'}})
+      this.goto("blog-creation", { query: { type: "2" } });
     },
     showArtical(artical) {
-      this.goto('blog-viewer', {
+      this.goto("blog-viewer", {
         params: {
-          id: artical.id
+          id: artical.id,
         },
-        winTarget: `blog_viewer_${new Date().getTime()}`
-      })
-    }
+        winTarget: `blog_viewer_${new Date().getTime()}`,
+      });
+    },
   },
 };
 </script>
 
 <style lang="sass" scoped>
+
+
 .block-section
   margin-bottom: 30px
   .title
     font-weight: bolder
     font-size: 20px
     margin-bottom: 10px
-  
+
 .block
   padding: 10px 10px 30px 10px
   display: flex
@@ -84,6 +94,7 @@ export default {
     box-sizing: border-box
     padding: 10px 40px 10px 10px
     width: 50%
+
 @media screen and (min-width:1000px)
   .block
     .section
@@ -108,7 +119,7 @@ export default {
     transition: all .5s
 
     .header
-      height: 100px
+      min-height: 100px
       .title
         font-size: 50px
         display: flex
