@@ -1,19 +1,23 @@
 <template lang="pug">
   .personal-index-main
-    .block
+    .block.mt30.mb30
       artical-list
-    .block
+    .block.mt30.mb30
       pano-list
+    .block.mt30.mb30
+      photo-list
 </template>
 
 <script>
 import ArticalList from './components/artical-list.vue'
 import PanoList from './components/pano-list.vue'
+import PhotoList from './components/photo-list.vue'
 
 export default {
   components: {
     ArticalList,
     PanoList,
+    PhotoList,
   },
   created() {
     

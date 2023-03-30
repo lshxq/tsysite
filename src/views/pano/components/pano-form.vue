@@ -130,8 +130,8 @@ export default {
       const {
         file
       } = param
-      if (file.size > 25 * 1024 * 1024) {
-        that.$message.error("全景图不能大于25M")
+      if (file.size > 50 * 1024 * 1024) {
+        that.$message.error("全景图不能大于50M")
         return 
       } 
       const filename = `${id}${utils.getFileExtention(file.name)}`

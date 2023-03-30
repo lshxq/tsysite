@@ -16,22 +16,21 @@
           pano-list
 
         .block-section
-          .site-map
-            a.item(href='/tsyvue/') tsyvue 教程
+          tsyvue-canvas
 
-        .block
-          .section
-            .h4 生活分享
-            sy-pagin-data(url='/public/artical/list' :query='{type:1,orderBy:"CREATED DESC"}')
-              template(slot-scope='scope')
-                .data-row(v-for='(row, idx) of scope.data' :key='idx')
-                  ll(:text='row.title' :data='row' @click='showArtical')
-          .section
-            .h4 技术分享
-            sy-pagin-data(url='/public/artical/list' :query='{type:2,orderBy:"CREATED DESC"}')
-              template(slot-scope='scope')
-                .data-row(v-for='(row, idx) of scope.data' :key='idx')
-                  ll(:text='row.title' :data='row' @click='showArtical')
+        .block-section
+          .h4 生活分享
+          sy-pagin-data(url='/public/artical/list' :query='{type:1,orderBy:"CREATED DESC"}')
+            template(slot-scope='scope')
+              .data-row(v-for='(row, idx) of scope.data' :key='idx')
+                ll(:text='row.title' :data='row' @click='showArtical')
+
+        .block-section
+          .h4 技术分享
+          sy-pagin-data(url='/public/artical/list' :query='{type:2,orderBy:"CREATED DESC"}')
+            template(slot-scope='scope')
+              .data-row(v-for='(row, idx) of scope.data' :key='idx')
+                ll(:text='row.title' :data='row' @click='showArtical')
             
 
     
@@ -42,6 +41,7 @@
 <script>
 import PhotoList from "./photo-list.vue";
 import TextCanvas from "./text-canvas.vue";
+import TsyvueCanvas from "./tsyvue-canvas.vue";
 import PanoList from "./pano-list.vue";
 import LinePointCanvas from "./line-point-canvas.vue";
 
@@ -52,6 +52,7 @@ export default {
     PhotoList,
     LinePointCanvas,
     TextCanvas,
+    TsyvueCanvas,
   },
   data() {
     return {};
@@ -80,20 +81,12 @@ export default {
 
 
 .block-section
-  margin-bottom: 30px
+  margin-bottom: 130px
   .title
     font-weight: bolder
     font-size: 20px
     margin-bottom: 10px
 
-.block
-  padding: 10px 10px 30px 10px
-  display: flex
-  flex-flow: row wrap
-  .section
-    box-sizing: border-box
-    padding: 10px 40px 10px 10px
-    width: 50%
 
 @media screen and (min-width:1000px)
   .block
@@ -130,13 +123,5 @@ export default {
     .body
       width: 100%
 
-      .site-map
-        padding: 10px
-        margin: 10px
-        width: 200px
-        .item
-          color: white
-          cursor: pointer
-          display: block
-          padding: 10px
+ 
 </style>
