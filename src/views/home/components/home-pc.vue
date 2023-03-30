@@ -8,6 +8,9 @@
           line-point-canvas
 
         .block-section
+          text-canvas-refine
+
+        .block-section
           .title 快乐时光
           photo-list
 
@@ -41,6 +44,7 @@
 <script>
 import PhotoList from "./photo-list.vue";
 import TextCanvas from "./text-canvas.vue";
+import TextCanvasRefine from "./text-canvas-refine.vue";
 import TsyvueCanvas from "./tsyvue-canvas.vue";
 import PanoList from "./pano-list.vue";
 import LinePointCanvas from "./line-point-canvas.vue";
@@ -53,6 +57,7 @@ export default {
     LinePointCanvas,
     TextCanvas,
     TsyvueCanvas,
+    TextCanvasRefine,
   },
   data() {
     return {};
