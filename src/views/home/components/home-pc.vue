@@ -2,13 +2,10 @@
   #app-main-panel-pc
     .narrow
       .header
-        text-canvas
+        text-canvas-refine(text='面向初中生的Canvas动画教程,点击查看文档')
       .body
         .block-section
           line-point-canvas
-
-        .block-section
-          text-canvas-refine
 
         .block-section
           .title 快乐时光
@@ -27,6 +24,8 @@
             template(slot-scope='scope')
               .data-row(v-for='(row, idx) of scope.data' :key='idx')
                 ll(:text='row.title' :data='row' @click='showArtical')
+        
+    
 
         .block-section
           .h4 技术分享

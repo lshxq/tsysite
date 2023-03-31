@@ -4,12 +4,26 @@
 </template>
 
 <script>
-
 let imagePoints = []
-let imagePointIndex = 0
 export default {
+  props: {
+    text: {
+      type: String,
+      default() {
+        return '你好啊！'
+      }
+    }
+  },
   data() {
-    return {};
+    return {
+      currentTextIndex: -1
+    };
+  },
+  computed: {
+    textArray() {
+      const {text} = this
+      return text.split(',')
+    },
   },
   mounted() {
     const { canvasRef, mainContainer } = this.$refs;
@@ -18,11 +32,8 @@ export default {
     canvasRef.width = this.canvasWidth;
     canvasRef.height = this.canvasHeight;
     this.ctx = canvasRef.getContext("2d");
-
-
-    imagePoints = this.getTextImageData('你好么？')
-    imagePointIndex = 0
-    this.drawText();
+    this.drawText()
+    this.updateText()
   },
 
   methods: {
@@ -63,27 +74,38 @@ export default {
       return ps.sort((a,b) => a.x - b.x)
     },
 
+    updateText() {
+      const {
+        textArray
+      } = this
+      this.currentTextIndex+= 1
+      if (this.currentTextIndex > textArray.length - 1) {
+        this.currentTextIndex=0
+      }
+      const currentText=  textArray[this.currentTextIndex]
+      imagePoints = this.getTextImageData(currentText)
+    },
+
     drawText() {
-      const { ctx, canvasWidth: width, canvasHeight: height, } = this;
-      ctx.clearRect(0, 0, width, height);
+      const { ctx, canvasWidth, canvasHeight} = this;
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       ctx.fillStyle = "#ffffff";
       imagePoints.map((point,idx) => {
-        if (imagePointIndex === idx) {
+        if (idx === 0 || imagePoints[idx - 1].stepCount > 2) {
           if (point.currX > point.x) {
             point.currX -= 30
+            point.stepCount = point.stepCount ? point.stepCount + 1 : 1
           }
           if (point.currX < point.x) {
             point.currX = point.x
           }
-          if (point.currX === point.x) {
-            imagePointIndex += 1
-          }
+        } 
+        if (idx === imagePoints.length - 1 && point.currX === point.x) {
+          setTimeout(this.updateText, 500)
         }
         ctx.fillRect(point.currX,point.y,2,2)
       })
-      
-      
-      requestAnimationFrame(this.drawText);
+      requestAnimationFrame(this.drawText)
     },
   },
 };

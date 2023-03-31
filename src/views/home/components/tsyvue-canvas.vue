@@ -1,5 +1,5 @@
 <template lang="pug">
-  .tsyvue-canvas-main-panel(ref='mainContainer' @click='gotoTsyvue')
+  .text-canvas-main-panel(ref='mainContainer' @click='gotoTsyvue')
     canvas(ref='canvasRef')
 </template>
 
@@ -25,7 +25,7 @@ export default {
     };
 
     const run = async () => {
-      const textArr = `tsyvue,点击查看文档`.split(",");
+      const textArr = `tsyvue帮你提升开发效率,点击查看文档`.split(",");
       for (let idx = 0; idx < textArr.length; idx++) {
         const txt = textArr[idx];
         await awaitSentText(txt, 100, 40);
@@ -41,7 +41,7 @@ export default {
 
   methods: {
     gotoTsyvue() {
-      location.href='/tsyvue'
+      location.href='/tsyvue/homve'
     },
     sentText(text, fontSize = 100, stepV = 40) {
       const { ctx, canvasWidth: width, canvasHeight: height } = this;
@@ -138,6 +138,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.tsyvue-canvas-main-panel
+.text-canvas-main-panel
   cursor: pointer
 </style>
