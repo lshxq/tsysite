@@ -1,7 +1,7 @@
 <template lang="pug">
   #app-main-panel-pc
     .narrow
-      .header
+      .header.cursor-pointer(@click='gotoCanvasTraining')
         text-canvas-refine(text='面向初中生的Canvas动画教程,点击查看文档')
       .body
         .block-section
@@ -63,6 +63,9 @@ export default {
   },
 
   methods: {
+    gotoCanvasTraining() {
+      window.open('/site/blog/12/viewer', 'CanvasTraining')
+    },
     newLifeShare() {
       this.goto("blog-creation", { query: { type: "1" } });
     },
