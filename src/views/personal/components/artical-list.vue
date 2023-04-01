@@ -1,22 +1,22 @@
 <template lang="pug">
-  .artical-list-main
-    .title.h3 文章管理
-    sy-left-right.mb10
-      template(slot='left')
-        .flex-row
-          sy-search-input.mr10(v-model='query.keyword' placeholder='请输入关键字')
-          sy-options(v-model='query.type' type='1' :options='blogTypeOptions' label='文件类型')
-      template(slot='right')
-        el-button(type='primary' @click='goto("blog-creation")') 新建文章
+.artical-list-main
+  .title.h3 文章管理
+  sy-left-right.mb10
+    template(slot='left')
+      .flex-row
+        sy-search-input.mr10(v-model='query.keyword' placeholder='请输入关键字')
+        sy-options(v-model='query.type' type='1' :options='blogTypeOptions' label='文件类型')
+    template(slot='right')
+      el-button(type='primary' @click='goto("blog-creation")') 新建文章
 
-    sy-pagin-table(
-      url='artical/list'
-      :query='query'
-      :columns='articalColumns'
-    )
-      template(v-slot:action='scope')
-        el-button(type='primary' size='mini' @click='editArtical(scope.data.row)') 编辑
-        el-button(type='success' size='mini' @click='showArtical(scope.data.row)') 预览
+  sy-pagin-table(
+    url='artical/list'
+    :query='query'
+    :columns='articalColumns'
+  )
+    template(v-slot:action='scope')
+      el-button(type='primary' size='mini' @click='editArtical(scope.data.row)') 编辑
+      el-button(type='success' size='mini' @click='showArtical(scope.data.row)') 预览
 
 </template>
 
@@ -64,7 +64,8 @@ export default {
     return {
       query: {
         type: '',
-        keyword: ''
+        keyword: '',
+        orderBy: 'CREATED DESC'
       }
     }
   },
