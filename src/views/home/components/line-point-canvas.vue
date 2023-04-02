@@ -7,11 +7,10 @@
 const random = (max = 100, min = 0) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
-/*
-const randomBoolean = () => {
-  return random(100, 0) > 50;
-};
-*/
+
+const points = [];
+let drawTimestamp = Date.now();
+
 export default {
   data() {
     return {};
@@ -24,7 +23,7 @@ export default {
     canvasRef.height = this.canvasHeight;
     this.ctx = canvasRef.getContext("2d");
 
-    const points = [];
+    
     const pointCount = 50;
     for (let idx = 0; idx < pointCount; idx++) {
       points.push({
@@ -34,13 +33,11 @@ export default {
         ySpeed: random(50, -50),
       });
     }
-    this.points = points;
-    console.log();
     this.draw();
   },
   methods: {
     draw() {
-      const { points, canvasWidth, canvasHeight, ctx } = this;
+      const { canvasWidth, canvasHeight, ctx } = this;
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
       ctx.fillStyle = "#fff";
@@ -69,43 +66,37 @@ export default {
         ctx.closePath();
         ctx.fill();
         // 更新x
-        let xStep = this.getXStep(point.xSpeed);
+        let xStep = this.getStepLength(point.xSpeed);
         let newX = point.x + xStep;
         if (0 > newX || newX > canvasWidth) {
           point.xSpeed = 0 - point.xSpeed;
-          xStep = this.getXStep(point.xSpeed);
+          xStep = this.getStepLength(point.xSpeed);
         }
         point.x = point.x + xStep;
+        if (point.x < 0 || point.x > canvasWidth) {
+          point.x = random(canvasWidth - 10, 10);
+        }
         // 更新y
-        let yStep = this.getYStep(point.ySpeed);
+        let yStep = this.getStepLength(point.ySpeed);
         let newY = point.y + yStep;
         if (0 > newY || newY > canvasHeight) {
           point.ySpeed = 0 - point.ySpeed;
-          yStep = this.getYStep(point.ySpeed);
+          yStep = this.getStepLength(point.ySpeed);
         }
         point.y = point.y + yStep;
+        if (point.y < 0 || point.y > canvasHeight) {
+          point.y = random(canvasHeight - 10, 10);
+        }
       }
-      this.drawTimestamp = Date.now();
+      drawTimestamp = Date.now();
       requestAnimationFrame(this.draw);
     },
-    getXStep(xSpeed) {
-      const { drawTimestamp } = this;
-      let xStep = 0;
-      if (drawTimestamp) {
-        const now = Date.now();
-        const duration = (now - drawTimestamp) / 1000;
-        xStep = duration * xSpeed;
-      }
-      return xStep;
-    },
-    getYStep(ySpeed) {
-      const { drawTimestamp } = this;
+
+    getStepLength(ySpeed) {
       let yStep = 0;
-      if (drawTimestamp) {
-        const now = Date.now();
+      const now = Date.now();
         const duration = (now - drawTimestamp) / 1000;
         yStep = duration * ySpeed;
-      }
       return yStep;
     },
   },
