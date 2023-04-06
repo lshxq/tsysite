@@ -3,6 +3,7 @@
     .narrow
       .header.cursor-pointer(@click='gotoCanvasTraining')
         text-canvas-refine(text='面向初中生的Canvas动画教程,点击查看文档')
+        
       .body
         .block-section
           line-point-canvas
@@ -10,6 +11,9 @@
         .block-section
           .title 快乐时光
           photo-list
+        
+        .block-section
+          sy-water-drop
 
         .block-section
           .title 全景图欣赏
@@ -20,7 +24,7 @@
 
         .block-section
           .h4 生活分享
-          sy-pagin-data(url='/public/artical/list' :query='{type:1,orderBy:"CREATED DESC"}')
+          sy-pagin-data(url='/public/artical/list' :query='query1')
             template(slot-scope='scope')
               .data-row(v-for='(row, idx) of scope.data' :key='idx')
                 ll(:text='row.title' :data='row' @click='showArtical')
@@ -29,10 +33,15 @@
 
         .block-section
           .h4 技术分享
-          sy-pagin-data(url='/public/artical/list' :query='{type:2,orderBy:"CREATED DESC"}')
+          sy-pagin-data(url='/public/artical/list' :query='query2')
             template(slot-scope='scope')
               .data-row(v-for='(row, idx) of scope.data' :key='idx')
                 ll(:text='row.title' :data='row' @click='showArtical')
+
+
+        .block-section
+          .calendar-block
+            sy-calendar(v-model='selectedDate')
             
 
     
@@ -59,7 +68,13 @@ export default {
     TextCanvasRefine,
   },
   data() {
-    return {};
+    return {
+      selectedDate: new Date(),
+      query1: {type:1,orderBy:"CREATED DESC"},
+      query2: {
+        type:2,orderBy:"CREATED DESC"
+      }
+    };
   },
 
   methods: {
@@ -88,7 +103,7 @@ export default {
 
 
 .block-section
-  margin-bottom: 130px
+  padding-bottom: 130px
   .title
     font-weight: bolder
     font-size: 20px
@@ -130,5 +145,10 @@ export default {
     .body
       width: 100%
 
- 
+.calendar-block
+  margin-top: 100px;
+  width: 400px;
+  background: white;
+  margin-bottom: 100px;
+  display: line-block;
 </style>

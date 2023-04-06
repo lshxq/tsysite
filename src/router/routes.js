@@ -11,6 +11,12 @@ export default [
     component: () => import("@/views/home/home-index.vue"),
   },
   {
+    path: "/kanban",
+    name: "kanban",
+    meta: {},
+    component: () => import("@/views/kanban/kanban-index.vue"),
+  },
+  {
     path: '/login',
     name: 'login',
     meta: {},
