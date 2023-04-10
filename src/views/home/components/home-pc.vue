@@ -4,10 +4,14 @@
       .header.cursor-pointer(@click='gotoCanvasTraining')
         text-canvas-refine(text='面向初中生的Canvas动画教程,点击查看文档')
         
+      
       .body
+        .rolling-image-block
+          sy-rolling-image(:images='rollingImages')
+
         .block-section
           line-point-canvas
-
+        
         .block-section
           .title 快乐时光
           photo-list
@@ -73,7 +77,15 @@ export default {
       query1: {type:1,orderBy:"CREATED DESC"},
       query2: {
         type:2,orderBy:"CREATED DESC"
-      }
+      },
+      rollingImages: [
+        this.getUploadedResource('img/20220311102357.jpg'),
+        this.getUploadedResource('img/20220311102855.jpg'),
+        this.getUploadedResource('img/20220311102907.jpg'),
+        this.getUploadedResource('img/20220311102918.jpg'),
+        this.getUploadedResource('img/20220311102928.jpg'),
+        this.getUploadedResource('img/20220311102938.jpg')
+      ]
     };
   },
 
@@ -151,4 +163,7 @@ export default {
   background: white;
   margin-bottom: 100px;
   display: line-block;
+
+.rolling-image-block
+  height: 800px;
 </style>

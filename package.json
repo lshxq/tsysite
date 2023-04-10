@@ -14,7 +14,7 @@
     "mavon-editor": "^2.10.4",
     "photo-sphere-viewer": "^4.6.1",
     "qiniu-js": "^3.4.0",
-    "tsyvue": "^0.1.14",
+    "tsyvue": "^0.1.15",
     "vue": "^2.6.11",
     "vue-baidu-map": "^0.21.22",
     "vue-cropper": "^0.5.8",
