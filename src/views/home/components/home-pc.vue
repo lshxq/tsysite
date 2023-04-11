@@ -6,6 +6,28 @@
         
       
       .body
+        .flex-center.mt30
+          .calendar-row
+            sy-left-right
+              div(slot='left' class='calendar-panel')
+                sy-left-right
+                  sy-calendar.mr30(v-model='selectedDate' slot='left')
+                  sy-water-drop.ml30(slot='right')
+
+              div(slot='right')
+                sy-ray-border.mr30(:width='200' :height='300' :radius='5')
+                  .tsy-panel 
+                    .name Tian 
+                    .num 21
+                sy-ray-border.mr30(:width='200' :height='300' :radius='5')
+                  .tsy-panel 
+                    .name UC 
+                    .num 90
+                sy-ray-border.mr30(:width='200' :height='300' :radius='5')
+                  .tsy-panel 
+                    .name YC 
+                    .num 15
+
         .rolling-image-block
           sy-rolling-image(:images='rollingImages')
 
@@ -17,7 +39,7 @@
           photo-list
         
         .block-section
-          sy-water-drop
+          
 
         .block-section
           .title 全景图欣赏
@@ -43,9 +65,7 @@
                 ll(:text='row.title' :data='row' @click='showArtical')
 
 
-        .block-section
-          .calendar-block
-            sy-calendar(v-model='selectedDate')
+  
             
 
     
@@ -157,13 +177,28 @@ export default {
     .body
       width: 100%
 
-.calendar-block
-  margin-top: 100px;
-  width: 400px;
-  background: white;
-  margin-bottom: 100px;
-  display: line-block;
+
 
 .rolling-image-block
   height: 800px;
+
+.calendar-row
+  width: 70%
+
+.tsy-panel
+  background: red;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+  color: black;
+  -webkit-text-stroke: 3px white;
+  font-weight: bolder;
+  .name
+    font-size: 70px;
+
+  .num
+    font-size: 122px;
 </style>

@@ -2,8 +2,6 @@
   #app-main-panel
     pc(v-if='isPc')
     phone(v-else)
-            
-
     
           
 

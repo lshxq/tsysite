@@ -8865,10 +8865,10 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tsyvue@^0.1.15":
-  "integrity" "sha512-bvk7FgGneBpIUlotmvKTsEmkQM4fY49WAq1AXIqMbgSEXxdXbJtBR6sNZKpIcaEEJFzanvwbKK4vRwC1Lc8DSw=="
-  "resolved" "https://registry.npmjs.org/tsyvue/-/tsyvue-0.1.15.tgz"
-  "version" "0.1.15"
+"tsyvue@^0.1.16":
+  "integrity" "sha512-5JYT9OUlmmKoL4lzROo5IpOUEOgkp7eKopys9JZ3wVpf6UHEvNWM36rERbm6fXVgarloBCV4MjNCgL7PY9gkRQ=="
+  "resolved" "https://registry.npmjs.org/tsyvue/-/tsyvue-0.1.16.tgz"
+  "version" "0.1.16"
   dependencies:
     "axios" "^0.18.0"
     "core-js" "^3.6.5"
