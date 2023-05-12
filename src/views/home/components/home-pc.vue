@@ -183,7 +183,6 @@ export default {
   height: 800px;
 
 .calendar-row
-  width: 70%
 
 .tsy-panel
   background: red;
