@@ -23,16 +23,18 @@ export default {
     canvasRef.height = this.canvasHeight;
     this.ctx = canvasRef.getContext("2d");
 
-    
-    const pointCount = 50;
-    for (let idx = 0; idx < pointCount; idx++) {
-      points.push({
-        x: random(this.canvasWidth - 10),
-        y: random(this.canvasHeight - 10),
-        xSpeed: random(50, -50),
-        ySpeed: random(50, -50),
-      });
+    if (points.length === 0) {
+      const pointCount = 50;
+      for (let idx = 0; idx < pointCount; idx++) {
+        points.push({
+          x: random(this.canvasWidth - 10),
+          y: random(this.canvasHeight - 10),
+          xSpeed: random(50, -50),
+          ySpeed: random(50, -50),
+        });
+      }
     }
+
     this.draw();
   },
   methods: {
@@ -95,8 +97,8 @@ export default {
     getStepLength(ySpeed) {
       let yStep = 0;
       const now = Date.now();
-        const duration = (now - drawTimestamp) / 1000;
-        yStep = duration * ySpeed;
+      const duration = (now - drawTimestamp) / 1000;
+      yStep = duration * ySpeed;
       return yStep;
     },
   },

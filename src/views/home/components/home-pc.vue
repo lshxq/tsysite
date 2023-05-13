@@ -1,5 +1,6 @@
 <template lang="pug">
   #app-main-panel-pc
+    new-york.mb30(@click='alert(1)')
     .narrow
       .header.cursor-pointer(@click='gotoCanvasTraining')
         text-canvas-refine(text='面向初中生的Canvas动画教程,点击查看文档')
@@ -11,22 +12,24 @@
             sy-left-right
               div(slot='left' class='calendar-panel')
                 sy-left-right
-                  sy-calendar.mr30(v-model='selectedDate' slot='left')
-                  sy-water-drop.ml30(slot='right')
+                  sy-calendar.mr10(v-model='selectedDate' slot='left')
 
               div(slot='right')
-                sy-ray-border.mr30(:width='200' :height='300' :radius='5')
+                sy-ray-border.ml30(:width='200' :height='300' :radius='5')
                   .tsy-panel 
                     .name Tian 
                     .num 21
-                sy-ray-border.mr30(:width='200' :height='300' :radius='5')
+                sy-ray-border.ml10(:width='200' :height='300' :radius='5')
                   .tsy-panel 
                     .name UC 
                     .num 90
-                sy-ray-border.mr30(:width='200' :height='300' :radius='5')
+                sy-ray-border.ml10(:width='200' :height='300' :radius='5')
                   .tsy-panel 
                     .name YC 
                     .num 15
+
+        .water-drop-container 水滴可以拖动
+          sy-water-drop(v-drag)
 
         .rolling-image-block
           sy-rolling-image(:images='rollingImages')
@@ -80,10 +83,12 @@ import TextCanvasRefine from "./text-canvas-refine.vue";
 import TsyvueCanvas from "./tsyvue-canvas.vue";
 import PanoList from "./pano-list.vue";
 import LinePointCanvas from "./line-point-canvas.vue";
+import NewYork from "@/comps/new-york.vue";
 
 export default {
   name: "App",
   components: {
+    NewYork,
     PanoList,
     PhotoList,
     LinePointCanvas,
@@ -94,24 +99,25 @@ export default {
   data() {
     return {
       selectedDate: new Date(),
-      query1: {type:1,orderBy:"CREATED DESC"},
+      query1: { type: 1, orderBy: "CREATED DESC" },
       query2: {
-        type:2,orderBy:"CREATED DESC"
+        type: 2,
+        orderBy: "CREATED DESC",
       },
       rollingImages: [
-        this.getUploadedResource('img/20220311102357.jpg'),
-        this.getUploadedResource('img/20220311102855.jpg'),
-        this.getUploadedResource('img/20220311102907.jpg'),
-        this.getUploadedResource('img/20220311102918.jpg'),
-        this.getUploadedResource('img/20220311102928.jpg'),
-        this.getUploadedResource('img/20220311102938.jpg')
-      ]
+        this.getUploadedResource("img/20220311102357.jpg"),
+        this.getUploadedResource("img/20220311102855.jpg"),
+        this.getUploadedResource("img/20220311102907.jpg"),
+        this.getUploadedResource("img/20220311102918.jpg"),
+        this.getUploadedResource("img/20220311102928.jpg"),
+        this.getUploadedResource("img/20220311102938.jpg"),
+      ],
     };
   },
 
   methods: {
     gotoCanvasTraining() {
-      window.open('/site/blog/12/viewer', 'CanvasTraining')
+      window.open("/site/blog/12/viewer", "CanvasTraining");
     },
     newLifeShare() {
       this.goto("blog-creation", { query: { type: "1" } });
@@ -183,6 +189,20 @@ export default {
   height: 800px;
 
 .calendar-row
+
+.water-drop-container
+  margin-top: 50px
+  height: 300px
+  position: relative
+  background: linear-gradient(#222, #333, #222)
+  display: flex
+  align-items: center
+  justify-content: center
+  overflow: auto
+  font-size: 10vw
+  color: transparent
+  -webkit-text-stroke: 1px white
+  text-stroke: 1px white
 
 .tsy-panel
   background: red;

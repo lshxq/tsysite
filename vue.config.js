@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: "/site",
+  publicPath: "/site", // 在css中有引用，不能该，不然背景图找不到了
   devServer: {
     host: "localhost", //target host
     port: 8080,
