@@ -1,3 +1,5 @@
+import learnings from "./learning-routes.js";
+
 export default [
   {
     path: "/",
@@ -89,9 +91,5 @@ export default [
     },
     component: () => import("@/views/pano/pano-editor-index.vue"),
   },
-  {
-    path: "/learning/001",
-    name: "learning-001",
-    component: () => import("@/views/learning/a001.vue"),
-  },
+  ...learnings,
 ];

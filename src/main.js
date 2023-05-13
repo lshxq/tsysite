@@ -6,92 +6,93 @@ import tsy from "tsyvue";
 import element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import router from "./router";
-import _ from 'lodash';
+import _ from "lodash";
 import VueCropper from "vue-cropper";
-Vue.use(VueCropper)
+Vue.use(VueCropper);
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
-import utils from '@/utils.js'
-import Editor from './components/mavon-editor-wrapper.vue'
+import utils from "@/utils.js";
+import Editor from "./components/mavon-editor-wrapper.vue";
 import PanoViewer from "./components/pano-viewer/pano-viewer.vue";
-import Link from './components/link.vue'
-import ImageCropper from './components/image-cropper.vue'
-Vue.component('image-cropper', ImageCropper)
-Vue.component('mavon-editor', mavonEditor)
-Vue.component('editor', Editor)
+import Link from "./components/link.vue";
+import ImageCropper from "./components/image-cropper.vue";
+Vue.component("image-cropper", ImageCropper);
+Vue.component("mavon-editor", mavonEditor);
+Vue.component("editor", Editor);
+
 Vue.use(element);
 Vue.use(tsy);
 Vue.config.productionTip = false;
 
 Vue.component("pano-viewer", PanoViewer);
-Vue.component("ll", Link)
+Vue.component("ll", Link);
 
-import BaiduMap from 'vue-baidu-map'
+import BaiduMap from "vue-baidu-map";
 Vue.use(BaiduMap, {
   // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
-  ak: 'HLMbUFR3t3Hu082LfMnf9ZLFR723i99w'
-})
+  ak: "HLMbUFR3t3Hu082LfMnf9ZLFR723i99w",
+});
 
 Vue.mixin({
   methods: {
-    long2datetime(long, pattern='yyyy-MM-dd hh:mm:ss') {
-      return new Date(long).format(pattern)
+    long2datetime(long, pattern = "yyyy-MM-dd hh:mm:ss") {
+      return new Date(long).format(pattern);
     },
-    upload(file, func='default', filename, onProgress) {
-      const that = this
-      const formData = new FormData()
+    upload(file, func = "default", filename, onProgress) {
+      const that = this;
+      const formData = new FormData();
 
-      formData.append('file', file)
+      formData.append("file", file);
       if (func) {
-        formData.append('func', func)
+        formData.append("func", func);
       }
       if (filename || filename === 0) {
-        formData.append('id', filename)
+        formData.append("id", filename);
       }
-      
 
       return new Promise((res, rej) => {
-        that.$axios({
-          url: 'system/upload',
-          method: 'POST',
-          data: formData,
-          onUploadProgress: e => {
-            if(onProgress) {
-              onProgress(e)
-            }
-          }
-
-        }).then(resp => {
-          res(resp)
-        }).catch(ex => {
-          that.$message.error(`文件 ${func}/${filename} 上传失败`)
-          rej(ex)
-        })
-      })
-      
+        that
+          .$axios({
+            url: "system/upload",
+            method: "POST",
+            data: formData,
+            onUploadProgress: (e) => {
+              if (onProgress) {
+                onProgress(e);
+              }
+            },
+          })
+          .then((resp) => {
+            res(resp);
+          })
+          .catch((ex) => {
+            that.$message.error(`文件 ${func}/${filename} 上传失败`);
+            rej(ex);
+          });
+      });
     },
     getUploadedResource(file) {
-      return `/site-upload/${file}`
+      return `/site-upload/${file}`;
     },
     getPanoUrl(filename) {
-      return `${this.getUploadedResource(`img/pano/${filename}`)}`
+      return `${this.getUploadedResource(`img/pano/${filename}`)}`;
     },
     goback() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
     getCurrentUser() {
-      return utils.getCurrentUser()
+      return utils.getCurrentUser();
     },
     $axios(params) {
-      const that = this
-      const prom = utils.axios(params)
-      prom.catch(ex => {
-        const status = _.get(ex, 'response.status')
-        if ('401' === `${status}`) {
-          that.goto("login", {})
+      const that = this;
+      const prom = utils.axios(params);
+      prom.catch((ex) => {
+        const status = _.get(ex, "response.status");
+        if ("401" === `${status}`) {
+          that.goto("login", {});
         }
-      })
-      return prom
+      });
+      return prom;
     },
     goto(name, args = {}) {
       const { params, query, winTarget } = args;
@@ -107,7 +108,7 @@ Vue.mixin({
           params,
           query,
         });
-        window.open(route.href, winTarget)
+        window.open(route.href, winTarget);
       }
     },
   },
@@ -118,8 +119,7 @@ new Vue({
   render: (h) => h(App),
 }).$mount("#app");
 
-
-Date.prototype.format = function (fmt = 'yyyy-MM-dd hh:mm:ss') {
+Date.prototype.format = function (fmt = "yyyy-MM-dd hh:mm:ss") {
   //author: meizz
   var o = {
     "M+": this.getMonth() + 1, //月份

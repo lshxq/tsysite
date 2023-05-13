@@ -33,6 +33,15 @@
 
         .rolling-image-block
           sy-rolling-image(:images='rollingImages')
+        
+        .mb30.mt30 
+          rotate-img(
+            :img1="getUploadedResource('img/20220311102357.jpg')"
+            :img2="getUploadedResource('img/20220311102855.jpg')"
+            :img3="getUploadedResource('img/20220311102907.jpg')"
+            :img4="getUploadedResource('img/20220311102918.jpg')"
+            :img5="getUploadedResource('img/20220311102928.jpg')"
+          )
 
         .block-section
           line-point-canvas
@@ -42,7 +51,7 @@
           photo-list
         
         .block-section
-          
+          grid-layout
 
         .block-section
           .title 全景图欣赏
@@ -84,10 +93,14 @@ import TsyvueCanvas from "./tsyvue-canvas.vue";
 import PanoList from "./pano-list.vue";
 import LinePointCanvas from "./line-point-canvas.vue";
 import NewYork from "@/comps/new-york.vue";
+import GridLayout from "@/comps/grid-layout.vue";
+import RotateImg from "@/comps/rotate-img.vue";
 
 export default {
   name: "App",
   components: {
+    GridLayout,
+    RotateImg,
     NewYork,
     PanoList,
     PhotoList,

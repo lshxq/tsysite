@@ -1,7 +1,7 @@
 <template lang="pug">
-  .main-container 
+  .learning001-main
     new-york
-    mavon-editor.mavon-view-panel(
+    editor.mavon-view-panel(
       :value='text' 
       default-open='preview'
       :editable='false'

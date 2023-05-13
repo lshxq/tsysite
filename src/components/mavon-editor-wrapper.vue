@@ -1,6 +1,6 @@
 <template lang="pug">
   .mavon-editor-main
-    mavon-editor.mavon-editor-panel(:value='value' ref='mdRef' @imgAdd="imgAdd" :toolbars='toolbars' @input='updateValue')
+    mavon-editor.mavon-editor-panel(:value='valueComputed' ref='mdRef' @imgAdd="imgAdd" :toolbars='toolbars' @input='updateValue' v-bind='$attrs')
     image-cropper(
       v-if='imageCropperData' 
       :img='imageCropperData.image' 
@@ -19,8 +19,8 @@ export default {
     imageUploadFolder: {
       type: String,
       default() {
-        return 'mavon-editor'
-      }
+        return "mavon-editor";
+      },
     },
     toolbars: {
       type: Object,
@@ -59,71 +59,82 @@ export default {
           /* 2.2.1 */
           subfield: true, // 单双栏模式
           preview: true, // 预览
-        }
-      }
-    }
+        };
+      },
+    },
   },
   data() {
     return {
-      imageCropperData: null
-    }
+      imageCropperData: null,
+    };
+  },
+  computed: {
+    valueComputed: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.updateValue(value);
+      },
+    },
   },
   methods: {
     updateValue(value) {
-      this.$emit('input', value)
+      this.$emit("input", value);
     },
     imageCanceled() {
-      const that = this
-      const {
-        pos
-      } = that.imageCropperData
-      that.imageCropperData = null
-      const md = that.$refs.mdRef
-      md.$imgDel(pos)
+      const that = this;
+      const { pos } = that.imageCropperData;
+      that.imageCropperData = null;
+      const md = that.$refs.mdRef;
+      md.$imgDel(pos);
     },
     imageUpload(image) {
-      const that = this
-      const {
-        imageUploadFolder
-      } = that
-      const {
-        pos
-      } = that.imageCropperData
-      const md = that.$refs.mdRef
-      that.upload(image, imageUploadFolder).then(resp => {
-        md.$img2Url(pos, that.getUploadedResource(`${imageUploadFolder}/${resp.data.id}`));
-      }).catch(ex => {
-        that.$message.error(ex)
-      }).finally(() => {
-        that.imageCropperData = null
-      })
+      const that = this;
+      const { imageUploadFolder } = that;
+      const { pos } = that.imageCropperData;
+      const md = that.$refs.mdRef;
+      that
+        .upload(image, imageUploadFolder)
+        .then((resp) => {
+          md.$img2Url(
+            pos,
+            that.getUploadedResource(`${imageUploadFolder}/${resp.data.id}`)
+          );
+        })
+        .catch((ex) => {
+          that.$message.error(ex);
+        })
+        .finally(() => {
+          that.imageCropperData = null;
+        });
     },
     imgAdd(pos, file) {
-      const that = this
-      console.log(file)
+      const that = this;
+      console.log(file);
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(file.name)) {
         that.$message({
-          message: '图片类型要求：jpeg、jpg、png',
-          type: "error"
+          message: "图片类型要求：jpeg、jpg、png",
+          type: "error",
         });
-        return false
+        return false;
       }
       //转化为blob
-      const reader = new FileReader()
+      const reader = new FileReader();
       reader.onload = (e) => {
-        let data
-        if (typeof e.target.result === 'object') {
-          data = window.URL.createObjectURL(new Blob([e.target.result]))
+        let data;
+        if (typeof e.target.result === "object") {
+          data = window.URL.createObjectURL(new Blob([e.target.result]));
         } else {
-          data = e.target.result
+          data = e.target.result;
         }
         that.imageCropperData = {
           pos,
-          image: data
-        }
-      }
-      reader.readAsDataURL(file)
-    }
-  }
-}
+          image: data,
+        };
+      };
+      reader.readAsDataURL(file);
+    },
+  },
+};
 </script>
