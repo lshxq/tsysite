@@ -1,6 +1,8 @@
 <template lang="pug">
   #app-main-panel-pc
-    new-york.mb30(@click='alert(1)')
+    .new-york-wrapper.mb30(@click='goto("learning-001")')
+      new-york
+    
     .narrow
       .header.cursor-pointer(@click='gotoCanvasTraining')
         text-canvas-refine(text='面向初中生的Canvas动画教程,点击查看文档')
@@ -34,7 +36,7 @@
         .rolling-image-block
           sy-rolling-image(:images='rollingImages')
         
-        .mb30.mt30 
+        .mb30.mt30(@click='goto("learning-003")')
           rotate-img(
             :img1="getUploadedResource('img/20220311102357.jpg')"
             :img2="getUploadedResource('img/20220311102855.jpg')"
@@ -50,7 +52,7 @@
           .title 快乐时光
           photo-list
         
-        .block-section
+        .block-section(@click='goto("learning-004")')
           grid-layout
 
         .block-section

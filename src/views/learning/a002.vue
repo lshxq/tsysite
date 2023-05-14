@@ -1,6 +1,6 @@
 <template lang="pug">
   .learning002-main
-    new-york.mb30
+    grid-layout.mb30
     button.mb30(@click='openEyeDropper') eye dropper
     .color-block(:style='blockStyleComputed') 
     .mb30.ml30 {{sRGBHex}}
@@ -17,17 +17,21 @@
 </template>
 
 <script>
-import NewYork from "@/comps/new-york.vue";
+import GridLayout from "@/comps/grid-layout.vue";
 
 export default {
   components: {
-    NewYork,
+    GridLayout,
   },
   data() {
     return {
       sRGBHex: "",
       text: `
-      现代浏览器支持 EyeDropper 对象，是一个可以在全屏幕取色的工具， const drop = new EyeDropper(); drop.open().then(res => console.log(res.sRGBHex));
+现代浏览器支持 EyeDropper 对象，是一个可以在全屏幕取色的工具， 
+\`\`\` javascript
+const drop = new EyeDropper(); 
+drop.open().then(res => console.log(res.sRGBHex));
+\`\`\`
       `,
     };
   },

@@ -19,4 +19,9 @@ export default [
     name: "learning-004",
     component: () => import("@/views/learning/a004.vue"),
   },
+  {
+    path: "/learning/005",
+    name: "learning-005",
+    component: () => import("@/views/learning/a005.vue"),
+  },
 ];

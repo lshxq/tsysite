@@ -68,31 +68,31 @@
     transition: all 0.5s;
 
     .item:nth-child(1) {
-      background: hsl(0%, 100%, 64%);
+      background: hsl(0, 100%, 64%);
     }
     .item:nth-child(2) {
-      background: hsl(40%, 100%, 64%);
+      background: hsl(40, 100%, 64%);
     }
     .item:nth-child(3) {
-      background: hsl(80%, 100%, 64%);
+      background: hsl(80, 100%, 64%);
     }
     .item:nth-child(4) {
-      background: hsl(120%, 100%, 64%);
+      background: hsl(120, 100%, 64%);
     }
     .item:nth-child(5) {
-      background: hsl(160%, 100%, 64%);
+      background: hsl(160, 100%, 64%);
     }
     .item:nth-child(6) {
-      background: hsl(200%, 100%, 64%);
+      background: hsl(200, 100%, 64%);
     }
     .item:nth-child(7) {
-      background: hsl(240%, 100%, 64%);
+      background: hsl(240, 100%, 64%);
     }
     .item:nth-child(8) {
-      background: hsl(280%, 100%, 64%);
+      background: hsl(280, 100%, 64%);
     }
     .item:nth-child(9) {
-      background: hsl(320%, 100%, 64%);
+      background: hsl(320, 100%, 64%);
     }
   }
 }

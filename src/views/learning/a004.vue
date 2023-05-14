@@ -23,49 +23,62 @@ export default {
   data() {
     return {
       text: `
-      # 学习要点：
+# 学习要点：
 
-      正方形盒子内是一个3行3列的网格布局
+正方形盒子内是一个3行3列的网格布局，起初他们是平局分配的，都是1fr
+\`\`\` css
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: 1fr 1fr 1fr;
+gap: 10px;
+\`\`\`
 
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 5px;
-      grid-template:
-        "a a b"
-        "d e b"
-        "d c c";
+当鼠标悬停到某个小方块的时候，我们希望把这个小方块变大，但是小方式的大小是在父容器中 定义的，原本是1fr，要想变大，就要更改父容器的 对应行列的 大小配置。
+比如这是 第二列 第一行 变大
+\`\`\` css
+grid-template-columns: 1fr 2fr 1fr;
+grid-template-rows: 2fr 1fr 1fr;
+\`\`\`
 
-
-      每个item具体分配到哪个模板范围，用如下方式
-
-      .item:nth-child(1)
-        grid-area: a
-      .item:nth-child(2)
-        grid-area: b
-      .item:nth-child(3)
-        grid-area: c
-      .item:nth-child(4)
-        grid-area: d
-      .item:nth-child(5)
-        grid-area: e
-
-
-      通过keyframe让正方形无限旋转起来，变量--r 是在正方形的 css中定义的旋转角度，360度
-      @keyframes rotation {
-        to {
-          transform: rotate(var(--r));
-        }
-      }
-      相同的动画应用给每一个img对象，但是旋转角度 相反，在img的样式中，修改--r的值为 -360deg即可
-      .item > img {
-        width: 260%;
-        height: 260%;
-        object-fit: cover;
-        --r: -360deg;
-        animation: rotation 10s linear infinite;
-      }
-      img对象的宽高比抱住他的div大一些（260%），以防止图片在旋转的时候，外层div内显示空白区域。
+我们的选择器应该这样写，square是大正方形， item是每一个小正方形，用has测试到底哪个小正方形 hover了，更改square的对应样式。
+\`\`\` css
+.square:has(.item:nth-child(1):hover) {
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 2fr 1fr 1fr;
+}
+.square:has(.item:nth-child(2):hover) {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 2fr 1fr 1fr;
+}
+.square:has(.item:nth-child(3):hover) {
+  grid-template-columns: 1fr 1fr 3fr;
+  grid-template-rows: 2fr 1fr 1fr;
+}
+.square:has(.item:nth-child(4):hover) {
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+.square:has(.item:nth-child(5):hover) {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+.square:has(.item:nth-child(6):hover) {
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+.square:has(.item:nth-child(7):hover) {
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 3fr;
+}
+.square:has(.item:nth-child(8):hover) {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 3fr;
+}
+.square:has(.item:nth-child(9):hover) {
+  grid-template-columns: 1fr 1fr 3fr;
+  grid-template-rows: 1fr 1fr 3fr;
+}
+\`\`\`
       `,
     };
   },
