@@ -29,9 +29,20 @@ export default {
     
     const move = (x, y) => {
       const ballRect = ball.getBoundingClientRect();
-      const initX = ballRect.left + ballRect.width / 2;
-      const initY = ballRect.top + ballRect.height / 2;
-      console.log(`${initX}    ${initY}`)
+      const initX = ballRect.left;
+      const initY = ballRect.top;
+      const rad = Math.atan2(y - initY, x - initX)
+      let deg = (rad * 180) / Math.PI;
+      if (!deg) {
+        deg =0
+      }
+      const yy = y - initY;
+      const xx = x - initX;
+      let duration = Math.sqrt(yy*yy + xx*xx)
+      if (duration < 1 || !duration) {
+        duration = 10
+      }
+      console.log(`${initX}    ${initY}     ${deg}    ${duration}`)
 
       ball.getAnimations().forEach(ani => {
         ani.cancel();
@@ -40,21 +51,34 @@ export default {
       ball.animate([
         {
           left: `${initX}px`,
-          top: `${initY}px`
+          top: `${initY}px`,
+          transform: `rotate(${deg}deg)`,
+          easing: 'ease-in'
+        },
+        {
+          transform: `rotate(${deg}deg) scaleX(1.5) `,
+          offset: 0.7
+        },
+        { 
+          transform: `rotate(${deg}deg) scaleX(1.5)  `,
+          offset: 0.85
         },
         {
           left: `${x}px`,
-          top: `${y}px`
+          top: `${y}px`,
+          transform: `rotate(${deg}deg)`,
+          easing: 'ease-out'
         }
       ], {
-        duration: 2000,
+        duration,
         fill: 'forwards'
       })
     }
 
+    move(rr(100, this.cWidth - 100), rr(400, this.cHeight - 200))
     this.timeId = setInterval(() => {
       move(rr(100, this.cWidth - 100), rr(400, this.cHeight - 200))
-    }, 2000) 
+    }, 3000) 
 
   },
   data() {
@@ -71,10 +95,12 @@ ball.animate([
   {
     left: \`\${initX}px\`,
     top: \`\${initY}px\`
+    easing: 'ease-in'
   },
   {
     left: \`\${x}px\`,
     top: \`\${y}px\`
+    easing: 'ease-out'
   }
 ], {
   duration: 2000,
