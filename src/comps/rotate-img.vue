@@ -2,15 +2,15 @@
   .flex-center.container
     .square 
       .item 
-        img(:src="img1" onerror='this.src="/site/assets/new-york.webp"')
+        img(:src="img1" :onerror='this.src=`${getPublicPath()}/assets/new-york.webp`')
       .item 
-        img(:src="img2" onerror='this.src="/site/assets/new-york.webp"')
+        img(:src="img2" :onerror='this.src=`${getPublicPath()}/assets/new-york.webp`')
       .item
-        img(:src="img3" onerror='this.src="/site/assets/new-york.webp"')
+        img(:src="img3" :onerror='this.src=`${getPublicPath()}/assets/new-york.webp`')
       .item 
-        img(:src="img4" onerror='this.src="/site/assets/new-york.webp"')
+        img(:src="img4" :onerror='this.src=`${getPublicPath()}/assets/new-york.webp`')
       .item 
-        img(:src="img5" onerror='this.src="/site/assets/new-york.webp"')
+        img(:src="img5" :onerror='this.src=`${getPublicPath()}/assets/new-york.webp`')
 
 </template>
 
@@ -37,7 +37,7 @@ export default {
     "a a b"
     "d e b"
     "d c c";
-  animation: rotation 10s linear infinite;
+  animation: rotating-img-comp-ani 10s linear infinite;
 }
 
 .item > img {
@@ -45,10 +45,10 @@ export default {
   height: 260%;
   object-fit: cover;
   --r: -360deg;
-  animation: rotation 10s linear infinite;
+  animation: rotating-img-comp-ani 10s linear infinite;
 }
 
-@keyframes rotation {
+@keyframes rotating-img-comp-ani {
   to {
     transform: rotate(var(--r));
   }

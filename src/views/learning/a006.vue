@@ -12,7 +12,7 @@
         :html='false')
     .image-block(v-resize='updateSize')
       template(v-for='idx in 1000')
-        img.image-obj( src='/site/assets/new-york.webp' :key='idx' draggable='false')
+        img.image-obj( :src='`${getPublicPath()}/assets/new-york.webp`' :key='idx' draggable='false')
 
 </template>
 

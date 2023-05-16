@@ -132,7 +132,7 @@ export default {
 
   methods: {
     gotoCanvasTraining() {
-      window.open("/site/blog/12/viewer", "CanvasTraining");
+      window.open(`${this.getPublicPath()}/blog/12/viewer`, "CanvasTraining");
     },
     newLifeShare() {
       this.goto("blog-creation", { query: { type: "1" } });

@@ -74,6 +74,9 @@ Vue.mixin({
     getUploadedResource(file) {
       return `/site-upload/${file}`;
     },
+    getPublicPath() {
+      return '/site'
+    },
     getPanoUrl(filename) {
       return `${this.getUploadedResource(`img/pano/${filename}`)}`;
     },

@@ -19,15 +19,15 @@ module.exports = {
           "^/site-api": "/site-api",
         },
       },
-      
+      */
       "/site-upload": {
-        target: "http://localhost/", //代理地址，这里设置的地址会代替axios中设置的baseURL
+        target: "http://121.40.72.215/", //代理地址，这里设置的地址会代替axios中设置的baseURL
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {
           "^/site-upload": "/site-upload",
         },
       },
-      */
+      
     },
   },
 };
