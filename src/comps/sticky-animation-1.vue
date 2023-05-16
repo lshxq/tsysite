@@ -99,7 +99,6 @@ export default {
                 start: division - 1,
                 end: 0
               }, chIdx) * 100 
-              console.log(`division     ${chIdx}     ${startOffset}` )
 
             } else if (chIdx >= division){
               startOffset -= (chIdx - division) * 100
@@ -130,10 +129,6 @@ export default {
               start: 0.1, 
               end: 0.9
             }, scrollValue)
-
-            if(text === 's') {
-              // console.log(pos)
-            }
 
             items.push({
               key: `a-${rowIdx}-${chIdx}`,
