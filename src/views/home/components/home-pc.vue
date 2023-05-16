@@ -1,5 +1,5 @@
 <template lang="pug">
-  #app-main-panel-pc
+  #app-main-panel-pc(@scroll='pageScroll')
     .new-york-wrapper.mb30(@click='goto("learning-001")')
       new-york
     
@@ -29,6 +29,9 @@
                   .tsy-panel 
                     .name YC 
                     .num 15
+
+        .sticky-animation 
+          sticky-animation-one(:scroll-start='1000' :scroll-end='2800' :scroll-value='stickyAnimationOne.scrollValue')
 
         .water-drop-container 水滴可以拖动
           sy-water-drop(v-drag)
@@ -97,10 +100,12 @@ import LinePointCanvas from "./line-point-canvas.vue";
 import NewYork from "@/comps/new-york.vue";
 import GridLayout from "@/comps/grid-layout.vue";
 import RotateImg from "@/comps/rotate-img.vue";
+import StickyAnimationOne from '@/comps/sticky-animation-1.vue' 
 
 export default {
   name: "App",
   components: {
+    StickyAnimationOne,
     GridLayout,
     RotateImg,
     NewYork,
@@ -127,8 +132,13 @@ export default {
         this.getUploadedResource("img/20220311102928.jpg"),
         this.getUploadedResource("img/20220311102938.jpg"),
       ],
+
+      stickyAnimationOne: {
+        scrollValue: 0
+      }
     };
   },
+ 
 
   methods: {
     gotoCanvasTraining() {
@@ -139,6 +149,9 @@ export default {
     },
     newTechShare() {
       this.goto("blog-creation", { query: { type: "2" } });
+    },
+    pageScroll(event) {
+      this.stickyAnimationOne.scrollValue = event.target.scrollTop;
     },
     showArtical(artical) {
       this.goto("blog-viewer", {
@@ -178,7 +191,8 @@ export default {
   min-width: 580px
   background-image: linear-gradient(#101010, #303030, #101010)
   color: white
-  min-height: 100vh
+  height: calc(100vh - 18px)
+  overflow: auto
 
 
   .narrow

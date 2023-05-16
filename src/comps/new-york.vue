@@ -36,5 +36,5 @@ $bg: url(/site/assets/new-york.webp)
       color: transparent
       transition: all .5s
     .text:hover
-      font-size: 14vw
+      font-size: 13.5vw
 </style>
