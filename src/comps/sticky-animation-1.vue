@@ -74,39 +74,40 @@ export default {
       }
 
       const items = [];
-      if (scrollValue > scrollStart) {
-        for (let rowIdx=0; rowIdx<strs.length; rowIdx++) {
-          const str = strs[rowIdx];
-          for (let chIdx=0; chIdx<str.length; chIdx++) {
-            const text = str.charAt(chIdx)
+      for (let rowIdx=0; rowIdx<strs.length; rowIdx++) {
+        const str = strs[rowIdx];
+        for (let chIdx=0; chIdx<str.length; chIdx++) {
+          const text = str.charAt(chIdx)
 
-            const columnWidth = showPanelSize.width / (str.length + 1)
-            const rowHeight = showPanelSize.height / (strs.length + 1)
+          const columnWidth = showPanelSize.width / (str.length + 1)
+          const rowHeight = showPanelSize.height / (strs.length + 1)
 
-            const target = {
-              x: columnWidth * (chIdx + 1),
-              y: rowHeight * (rowIdx + 1),
-            }
+          const target = {
+            x: columnWidth * (chIdx + 1),
+            y: rowHeight * (rowIdx + 1),
+          }
 
-            let startOffset = 0;
-            const division = Math.floor(str.length / 2)
+          let startOffset = 0;
+          const division = Math.floor(str.length / 2)
 
-            if (chIdx < division) {
-              startOffset -= rangeMapping({
-                start: 0, 
-                end: division -1
-              }, {
-                start: division - 1,
-                end: 0
-              }, chIdx) * 100 
+          if (chIdx < division) {
+            startOffset -= rangeMapping({
+              start: 0, 
+              end: division -1
+            }, {
+              start: division - 1,
+              end: 0
+            }, chIdx) * 100 
 
-            } else if (chIdx >= division){
-              startOffset -= (chIdx - division) * 100
-            }
+          } else if (chIdx >= division){
+            startOffset -= (chIdx - division) * 100
+          }
 
+          const range1Start = scrollStart + startOffset
+          if (range1Start < scrollValue) {
             const pos = {
               x: rangeMapping({
-                start: scrollStart + startOffset, 
+                start: range1Start, 
                 end: scrollEnd
               }, {
                 start: center.x, 
@@ -114,7 +115,7 @@ export default {
               }, scrollValue),
 
               y: rangeMapping({
-                start: scrollStart + startOffset, 
+                start: range1Start, 
                 end: scrollEnd
               }, {
                 start: center.y,
@@ -123,7 +124,7 @@ export default {
             }
 
             const opacity = rangeMapping({
-              start: scrollStart + startOffset, 
+              start: range1Start, 
               end: scrollEnd
             }, {
               start: 0.1, 
@@ -138,8 +139,10 @@ export default {
               opacity,
             })
           }
+          
         }
       }
+      
     
 
       
