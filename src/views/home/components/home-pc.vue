@@ -100,7 +100,7 @@ import LinePointCanvas from "./line-point-canvas.vue";
 import NewYork from "@/comps/new-york.vue";
 import GridLayout from "@/comps/grid-layout.vue";
 import RotateImg from "@/comps/rotate-img.vue";
-import StickyAnimationOne from '@/comps/sticky-animation-1.vue' 
+import StickyAnimationOne from '@/comps/sticky-animation-2.vue' 
 
 export default {
   name: "App",

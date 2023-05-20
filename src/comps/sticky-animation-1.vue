@@ -125,7 +125,7 @@ export default {
 
             const opacity = rangeMapping({
               start: range1Start, 
-              end: scrollEnd
+              end: scrollEnd / 2
             }, {
               start: 0.1, 
               end: 0.9
@@ -141,14 +141,7 @@ export default {
           }
           
         }
-      }
-      
-    
-
-      
-      
-
-      
+      }      
       return items;
     }
   },
@@ -161,14 +154,16 @@ export default {
       const {
         pos,
         bg,
-        opacity
+        opacity,
+        rotate
       } = item
       return {
         left: `${pos.x}px`,
         top: `${pos.y}px`,
         background: `hsl(${bg}deg, 100%, 64%)`,
         color: `hsl(${bg + 198}deg, 100%, 64%)`,
-        opacity
+        opacity,
+        transform: `rotate(${rotate}deg)`
       }
     }
   }
