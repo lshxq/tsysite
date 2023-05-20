@@ -340,6 +340,7 @@ export default {
     height: 100vh
     min-height: 600px
     top: 0
+    overflow: hidden
 
     .bubble-canvas-in-sticky
       position: absolute
